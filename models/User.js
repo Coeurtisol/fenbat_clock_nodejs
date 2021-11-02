@@ -2,11 +2,11 @@ import prisma from "./Prisma.js";
 
 const { worker } = prisma;
 
-export default class Worker {
+export default class User {
   constructor({ firstname, lastname, accessCode }) {
     this.firstname = firstname;
     this.lastname = lastname;
-    this.accessCode = Number(accessCode);
+    this.accessCode = accessCode;
   }
 
   save = async () => {
@@ -19,6 +19,16 @@ export default class Worker {
     });
     console.log("save", data);
     return data;
+  };
+
+  static findById = async (id) => {
+    const user = await worker.findUnique({
+      where: {
+        id,
+      },
+    });
+    console.log("findById", user);
+    return user;
   };
 
   static findAll = async () => {
@@ -41,12 +51,12 @@ export default class Worker {
     const data = await worker.findMany({
       include: {
         workSessions: {
-          where : {
-            sessionStart : {
-              gte : new Date(date)
-            }
-          }
-        }
+          where: {
+            sessionStart: {
+              gte: new Date(date),
+            },
+          },
+        },
       },
     });
     console.log("findAllByDay", data);

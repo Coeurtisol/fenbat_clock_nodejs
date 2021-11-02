@@ -1,9 +1,9 @@
-import WorkSession from "../models/WorkSession.js";
+import Pointage from "../models/Pointage.js";
 
 export async function create(req, res) {
   const workSession = req.body;
   try {
-    const newWorkSession = new WorkSession(workSession);
+    const newWorkSession = new Pointage(workSession);
     const data = await newWorkSession.save();
     res.json(data);
   } catch (error) {
@@ -14,9 +14,9 @@ export async function create(req, res) {
 
 export async function update(req, res) {
   const id = Number(req.params.id);
-  const { sessionEnd } = req.body;
+  const { pointageFin } = req.body;
   try {
-    const data = await WorkSession.update({ id, sessionEnd });
+    const data = await Pointage.update({ id, pointageFin });
     res.json(data);
   } catch (error) {
     console.log(error);

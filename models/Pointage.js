@@ -2,13 +2,13 @@ import prisma from "./Prisma.js";
 
 const { workSession } = prisma;
 
-export default class WorkSession {
-  constructor({ sessionStart, workerId }) {
-    this.sessionStart = sessionStart;
+export default class Pointage {
+  constructor({ pointageDebut, workerId }) {
+    this.sessionStart = pointageDebut;
     this.workerId = workerId;
   }
   save = async () => {
-    const data = workSession.create({
+    const data = await workSession.create({
       data: {
         sessionStart: this.sessionStart,
         workerId: this.workerId,
@@ -18,13 +18,13 @@ export default class WorkSession {
     return data;
   };
 
-  static update = async ({id, sessionEnd }) => {
-    const data = workSession.update({
+  static update = async ({id, pointageFin }) => {
+    const data = await workSession.update({
       where: {
         id
       },
       data: {
-        sessionEnd,
+        sessionEnd:pointageFin,
       },
     });
     console.log("update workSession", data);
