@@ -29,6 +29,8 @@ model WorkSession {
 
 model Order {
   id        Int     @id @default(autoincrement())
+  quantity  Int
+  done      Boolean
   article   Article @relation(fields: [articleId], references: [id])
   articleId Int
   user      Worker  @relation(fields: [userId], references: [id])

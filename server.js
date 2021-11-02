@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import mainRouter from "./routers/mainRouter.js";
+import apiRouter from "./routers/apiRouter.js";
 import cors from "cors";
 
 dotenv.config();
@@ -10,7 +10,7 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 server.get("/", (req, res) => res.status(404).end());
-server.use("/api", mainRouter);
+server.use("/api", apiRouter);
 
 const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
