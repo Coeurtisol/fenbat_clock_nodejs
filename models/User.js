@@ -32,7 +32,13 @@ export default class User {
   };
 
   static findAll = async () => {
-    const data = await worker.findMany();
+    const data = await worker.findMany({
+      select : {
+        id : true,
+        firstname : true,
+        lastname : true
+      }
+    });
     console.log("findAll", data);
     return data;
   };

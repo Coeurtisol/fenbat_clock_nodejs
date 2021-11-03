@@ -1,0 +1,28 @@
+### Motifs d'absence (pointages)
+Absence autorisée
+Absence non-autorisée
+Formation
+Maladie
+Accident travail
+Maternité
+Paternité
+
+### Roles (users)
+Admin
+Responsable site => valider niveau 2/refuser (avec commentaire)
+Responsable prod => sauvegarder/valider niveau 1(créer PDF/excel de la version technicien)
+Technicien => sauvegarder
+
+fonction possible (imprimer,envoyer)
+
+### Etats (Affaires)
+En cours
+SAV
+Assurance
+Cloturé
+
+### Etats (Semaines)
+saisie (fait par le salarié: enclenche une save PDF, notifie le n+1)
+Valide 1 (fait par le responsable de prod: valide et notifie le n+2 OU modifie et notifie le n+2. ne modifie pas le save pdf)
+Valide 2 (fait par le responsable de site: valide ou modifie. ne modifie pas le save pdf, interdit toute modif)
+Refusé (avec commentaire, retour saisie)

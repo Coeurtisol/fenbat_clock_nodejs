@@ -15,7 +15,7 @@ export async function create(req, res) {
     console.log(error);
     res.status(500).end();
   }
-  res.send("test");
+  // res.send("test");
 }
 
 export async function login(req, res) {
