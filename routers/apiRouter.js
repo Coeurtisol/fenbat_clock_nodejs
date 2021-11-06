@@ -1,26 +1,33 @@
 import { Router } from "express";
 import usersRouter from "./usersRouter.js"
 import pointagesRouter from "./pointagesRouter.js";
+// import semainesRouter from "./semainesRouter.js";
 import entitesRouter from "./entitesRouter.js";
 import motifsAbsenceRouter from "./motifsAbsenceRouter.js";
 import affairesRouter from "./affairesRouter.js";
-import etatsAffaireRouter from "./etatsAffaireRouter.js";
 import secteursAffaireRouter from "./secteursAffaireRouter.js";
 import typesAffaireRouter from "./typesAffaireRouter.js";
-// import categoriesRouter from "./categoriesRouter.js";
-// import articlesRouter from "./articlesRouter.js";
+import categoriesRouter from "./categoriesRouter.js";
+import articlesRouter from "./articlesRouter.js";
+import fournisseursRouter from "./fournisseursRouter.js";
 
 const apiRouter = Router();
 
-apiRouter.use("/users", usersRouter);
-apiRouter.use("/pointages", pointagesRouter);
+// Generalités
 apiRouter.use("/entites", entitesRouter);
-apiRouter.use("/motifsAbsence", motifsAbsenceRouter);
 apiRouter.use("/affaires", affairesRouter);
-apiRouter.use("/etatsAffaire", etatsAffaireRouter);
 apiRouter.use("/secteursAffaire", secteursAffaireRouter);
 apiRouter.use("/typesAffaire", typesAffaireRouter);
-// apiRouter.use("/categories", categoriesRouter);
-// apiRouter.use("/articles", articlesRouter);
+apiRouter.use("/users", usersRouter);
+
+// Pointages
+// apiRouter.use("/semaines", semainesRouter);
+apiRouter.use("/pointages", pointagesRouter);
+apiRouter.use("/motifsAbsence", motifsAbsenceRouter);
+
+// Commandes
+apiRouter.use("/categories", categoriesRouter);
+apiRouter.use("/articles", articlesRouter);
+apiRouter.use("/fournisseurs", fournisseursRouter);
 
 export default apiRouter;

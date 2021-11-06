@@ -1,9 +1,9 @@
-import Categorie from "../models/Categorie.js";
+import Article from "../models/Article.js";
 
 export async function getAll(req, res) {
   try {
-    const categories = await Categorie.findAll();
-    res.json(categories);
+    const articles = await Article.findAll();
+    res.json(articles);
   } catch (error) {
     console.log(error);
     res.status(500).end();
@@ -11,10 +11,10 @@ export async function getAll(req, res) {
 }
 
 export async function create(req, res) {
-  const categorie = req.body;
+  const article = req.body;
   try {
-    const newCategorie = new Categorie(categorie);
-    const data = await newCategorie.save();
+    const newArticle = new Article(article);
+    const data = await newArticle.save();
     res.json(data);
   } catch (error) {
     console.log(error);
@@ -24,9 +24,9 @@ export async function create(req, res) {
 
 export async function update(req, res) {
   const id = Number(req.params.id);
-  const { updatedCategorie } = req.body;
+  const { updatedArticle } = req.body;
   try {
-    const data = await Categorie.update({ id, updatedCategorie });
+    const data = await Article.update({ id, updatedArticle });
     res.json(data);
   } catch (error) {
     console.log(error);
@@ -37,7 +37,7 @@ export async function update(req, res) {
 export async function deleteOne(req, res) {
   const id = Number(req.params.id);
   try {
-    const data = await Categorie.delete(id);
+    const data = await Article.delete(id);
     res.json(data);
   } catch (error) {
     console.log(error);

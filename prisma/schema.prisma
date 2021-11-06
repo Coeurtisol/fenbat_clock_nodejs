@@ -18,11 +18,6 @@ model Entite {
   pointages Pointage[]
 }
 
-model EtatAffaire {
-  id   Int    @id @default(autoincrement())
-  name String
-}
-
 model TypeAffaire {
   id       Int       @id @default(autoincrement())
   name     String
@@ -125,13 +120,13 @@ model Commande {
 model Article {
   id           Int           @id @default(autoincrement())
   name         String
-  categorie    Category?      @relation(fields: [categorieId], references: [id])
+  categorie    Categorie?    @relation(fields: [categorieId], references: [id])
   categorieId  Int?
-  Commandes    Commande[]
+  commandes    Commande[]
   fournisseurs Fournisseur[]
 }
 
-model Category {
+model Categorie {
   id       Int       @id @default(autoincrement())
   name     String
   articles Article[]
