@@ -46,8 +46,8 @@ export async function login(req, res) {
 export async function findAll(req, res) {
   console.log(new Date());
   try {
-    const workers = await User.findAll();
-    res.json(workers);
+    const users = await User.findAll();
+    res.json(users);
   } catch (error) {
     console.log(error);
     res.status(500).end();

@@ -1,10 +1,10 @@
 import Pointage from "../models/Pointage.js";
 
 export async function create(req, res) {
-  const workSession = req.body;
+  const pointage = req.body;
   try {
-    const newWorkSession = new Pointage(workSession);
-    const data = await newWorkSession.save();
+    const newPointage = new Pointage(Pointage);
+    const data = await newPointage.save();
     res.json(data);
   } catch (error) {
     console.log(error);

@@ -1,6 +1,6 @@
 import prisma from "./Prisma.js";
 
-const { worker } = prisma;
+const { user } = prisma;
 
 export default class User {
   constructor({ firstname, lastname, accessCode }) {
@@ -10,7 +10,7 @@ export default class User {
   }
 
   save = async () => {
-    const data = await worker.create({
+    const data = await user.create({
       data: {
         firstname: this.firstname,
         lastname: this.lastname,
@@ -22,7 +22,7 @@ export default class User {
   };
 
   static findById = async (id) => {
-    const user = await worker.findUnique({
+    const user = await user.findUnique({
       where: {
         id,
       },
@@ -32,7 +32,7 @@ export default class User {
   };
 
   static findAll = async () => {
-    const data = await worker.findMany({
+    const data = await user.findMany({
       select : {
         id : true,
         firstname : true,
@@ -44,7 +44,7 @@ export default class User {
   };
 
   static delete = async (id) => {
-    const data = await worker.delete({
+    const data = await user.delete({
       where: {
         id,
       },
@@ -53,19 +53,19 @@ export default class User {
     return data;
   };
 
-  static findAllByDay = async (date) => {
-    const data = await worker.findMany({
-      include: {
-        workSessions: {
-          where: {
-            sessionStart: {
-              gte: new Date(date),
-            },
-          },
-        },
-      },
-    });
-    console.log("findAllByDay", data);
-    return data;
-  };
+  // static findAllByDay = async (date) => {
+  //   const data = await user.findMany({
+  //     include: {
+  //       pointages: {
+  //         where: {
+  //           sessionStart: {
+  //             gte: new Date(date),
+  //           },
+  //         },
+  //       },
+  //     },
+  //   });
+  //   console.log("findAllByDay", data);
+  //   return data;
+  // };
 }
