@@ -17,14 +17,12 @@ export default class SecteurAffaire {
     return data;
   };
 
-  static update = async ({id, secteurAffaire }) => {
+  static update = async (id, updatedSecteurAffaire) => {
     const data = await secteurAffaire.update({
       where: {
-        id
+        id,
       },
-      data: {
-        secteurAffaire,
-      },
+      data: updatedSecteurAffaire,
     });
     console.log("update", data);
     return data;

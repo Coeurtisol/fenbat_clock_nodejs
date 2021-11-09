@@ -24,9 +24,9 @@ export async function create(req, res) {
 
 export async function update(req, res) {
   const id = Number(req.params.id);
-  const { updatedEntite } = req.body;
+  const  updatedEntite = req.body;
   try {
-    const data = await Entite.update({ id, updatedEntite });
+    const data = await Entite.update( id, updatedEntite );
     res.json(data);
   } catch (error) {
     console.log(error);

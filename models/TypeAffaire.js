@@ -17,14 +17,12 @@ export default class TypeAffaire {
     return data;
   };
 
-  static update = async ({id, typeAffaire }) => {
+  static update = async (id, updatedTypeAffaire) => {
     const data = await typeAffaire.update({
       where: {
-        id
+        id,
       },
-      data: {
-        typeAffaire,
-      },
+      data: updatedTypeAffaire,
     });
     console.log("update", data);
     return data;

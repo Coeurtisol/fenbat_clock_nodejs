@@ -13,26 +13,24 @@ export default class Entite {
         name: this.name,
       },
     });
-    console.log("save", data);
+    // console.log("save", data);
     return data;
   };
 
-  static update = async ({id, entite }) => {
+  static update = async (id, entiteData) => {
     const data = await entite.update({
       where: {
-        id
+        id,
       },
-      data: {
-        entite,
-      },
+      data: entiteData,
     });
-    console.log("update", data);
+    // console.log("update", data);
     return data;
   };
 
   static findAll = async () => {
     const data = await entite.findMany();
-    console.log("findAll", data);
+    // console.log("findAll", data);
     return data;
   };
 
@@ -42,7 +40,7 @@ export default class Entite {
         id,
       },
     });
-    console.log("delete", data);
+    // console.log("delete", data);
     return data;
   };
 }

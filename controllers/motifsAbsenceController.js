@@ -24,9 +24,9 @@ export async function create(req, res) {
 
 export async function update(req, res) {
   const id = Number(req.params.id);
-  const { updatedMotifAbsence } = req.body;
+  const updatedMotifAbsence = req.body;
   try {
-    const data = await MotifAbsence.update({ id, updatedMotifAbsence });
+    const data = await MotifAbsence.update(id, updatedMotifAbsence);
     res.json(data);
   } catch (error) {
     console.log(error);

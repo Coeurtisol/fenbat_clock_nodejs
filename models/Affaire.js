@@ -3,13 +3,7 @@ import prisma from "./Prisma.js";
 const { affaire } = prisma;
 
 export default class Affaire {
-  constructor({
-    name,
-    secteurAffaireId,
-    typeAffaireId,
-    etat,
-    entiteId,
-  }) {
+  constructor({ name, secteurAffaireId, typeAffaireId, etat, entiteId }) {
     this.name = name;
     this.secteurAffaireId = Number(secteurAffaireId);
     this.typeAffaireId = Number(typeAffaireId);
@@ -32,14 +26,12 @@ export default class Affaire {
     return data;
   };
 
-  static update = async ({ id, affaire }) => {
+  static update = async (id, updatedAffaire) => {
     const data = await affaire.update({
       where: {
         id,
       },
-      data: {
-        affaire,
-      },
+      data: updatedAffaire,
     });
     console.log("update", data);
     return data;

@@ -24,9 +24,12 @@ export async function create(req, res) {
 
 export async function update(req, res) {
   const id = Number(req.params.id);
-  const { updatedAffaire } = req.body;
+  const updatedAffaire = req.body;
+  updatedAffaire.entiteId = Number(updatedAffaire.entiteId);
+  updatedAffaire.secteurAffaireId = Number(updatedAffaire.secteurAffaireId);
+  updatedAffaire.typeAffaireId = Number(updatedAffaire.typeAffaireId);
   try {
-    const data = await Affaire.update({ id, updatedAffaire });
+    const data = await Affaire.update(id, updatedAffaire);
     res.json(data);
   } catch (error) {
     console.log(error);

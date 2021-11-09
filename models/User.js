@@ -3,10 +3,12 @@ import prisma from "./Prisma.js";
 const { user } = prisma;
 
 export default class User {
-  constructor({ firstname, lastname, accessCode }) {
+  constructor({ firstname, lastname, accessCode, entiteId, roleId }) {
     this.firstname = firstname;
     this.lastname = lastname;
     this.accessCode = accessCode;
+    this.entiteId = entiteId;
+    this.roleId = roleId;
   }
 
   save = async () => {
@@ -15,31 +17,79 @@ export default class User {
         firstname: this.firstname,
         lastname: this.lastname,
         accessCode: this.accessCode,
+        entiteId: this.entiteId,
+        roleId: this.roleId,
       },
     });
-    console.log("save", data);
+    // console.log("save", data);
     return data;
   };
 
-  static findById = async (id) => {
-    const user = await user.findUnique({
+  static login = async (id) => {
+    const userFound = await user.findUnique({
       where: {
         id,
       },
+      select: {
+        id: true,
+        accessCode: true,
+        firstname: true,
+        lastname: true,
+        role: true,
+        entite: true,
+        status: true,
+      },
     });
-    console.log("findById", user);
-    return user;
+    console.log("login", userFound);
+    return userFound;
+  };
+
+  static findById = async (id) => {
+    const userFound = await user.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        id: true,
+        firstname: true,
+        lastname: true,
+        entite: true,
+        role: true,
+      },
+    });
+    // console.log("findById", userFound);
+    return userFound;
   };
 
   static findAll = async () => {
     const data = await user.findMany({
-      select : {
-        id : true,
-        firstname : true,
-        lastname : true
-      }
+      select: {
+        id: true,
+        firstname: true,
+        lastname: true,
+        entite: true,
+        role: true,
+      },
     });
-    console.log("findAll", data);
+    // console.log("findAll", data);
+    return data;
+  };
+
+  static update = async (id, updatedUser) => {
+    const data = await user.update({
+      where: {
+        id,
+      },
+      data: updatedUser,
+      select: {
+        id: true,
+        firstname: true,
+        lastname: true,
+        entite: true,
+        role: true,
+      },
+    });
+    // console.log("update", data);
     return data;
   };
 
@@ -49,7 +99,7 @@ export default class User {
         id,
       },
     });
-    console.log("delete", data);
+    // console.log("delete", data);
     return data;
   };
 

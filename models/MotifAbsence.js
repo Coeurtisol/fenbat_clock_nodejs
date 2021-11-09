@@ -17,14 +17,12 @@ export default class MotifAbsence {
     return data;
   };
 
-  static update = async ({id, motifAbsence }) => {
+  static update = async (id, updatedMotifAbsence) => {
     const data = await motifAbsence.update({
       where: {
-        id
+        id,
       },
-      data: {
-        motifAbsence,
-      },
+      data: updatedMotifAbsence,
     });
     console.log("update", data);
     return data;
