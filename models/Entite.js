@@ -29,7 +29,13 @@ export default class Entite {
   };
 
   static findAll = async () => {
-    const data = await entite.findMany();
+    const data = await entite.findMany({
+      select: {
+        id: true,
+        name: true,
+        affaires: true,
+      },
+    });
     // console.log("findAll", data);
     return data;
   };

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import usersRouter from "./usersRouter.js"
 import pointagesRouter from "./pointagesRouter.js";
-// import semainesRouter from "./semainesRouter.js";
+import semainesRouter from "./semainesRouter.js";
 import entitesRouter from "./entitesRouter.js";
 import motifsAbsenceRouter from "./motifsAbsenceRouter.js";
 import affairesRouter from "./affairesRouter.js";
@@ -21,7 +21,7 @@ apiRouter.use("/typesAffaire", typesAffaireRouter);
 apiRouter.use("/users", usersRouter);
 
 // Pointages
-// apiRouter.use("/semaines", semainesRouter);
+apiRouter.use("/semaines", semainesRouter);
 apiRouter.use("/pointages", pointagesRouter);
 apiRouter.use("/motifsAbsence", motifsAbsenceRouter);
 

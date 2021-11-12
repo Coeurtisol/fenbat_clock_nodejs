@@ -70,7 +70,7 @@ export async function login(req, res) {
 
   const payload = {
     id,
-    firsname: user.firstname,
+    firstname: user.firstname,
     lastname: user.lastname,
     role: user.role,
     entite: user.entite,
