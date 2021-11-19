@@ -113,3 +113,22 @@ export async function findAllByDay(req, res) {
     res.status(500).end();
   }
 }
+
+export async function addAdmin(req, res) {
+  const admin = {
+    firstname: "admin",
+    lastname: "admin",
+    roleId: 1,
+    entiteId: null,
+    accessCode: '1234',
+  };
+  try {
+    admin.accessCode = await bcrypt.hash(admin.accessCode, 10);
+    const newUser = new User(admin);
+    const data = await newUser.save();
+    res.json(data);
+  } catch (error) {
+    console.log(error);
+    res.status(500).end();
+  }
+}
