@@ -76,7 +76,7 @@ model Pointage {
   motifAbsenceId Int?
   affaire        Affaire?      @relation(fields: [affaireId], references: [id])
   affaireId      Int?
-  entite         Entite?        @relation(fields: [entiteId], references: [id])
+  entite         Entite?       @relation(fields: [entiteId], references: [id])
   entiteId       Int?
   semaine        Semaine       @relation(fields: [semaineId], references: [id])
   semaineId      Int
@@ -90,13 +90,14 @@ model MotifAbsence {
 
 model Semaine {
   id            Int         @id @default(autoincrement())
-  numero         Int
+  annee         Int
+  numero        Int
   user          User        @relation(fields: [userId], references: [id])
   userId        Int
   etatSemaine   EtatSemaine @relation(fields: [etatSemaineId], references: [id])
   etatSemaineId Int
   pointages     Pointage[]
-  commentaire   String?      @db.Text
+  commentaire   String?     @db.Text
 }
 
 model EtatSemaine {
