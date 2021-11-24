@@ -67,15 +67,17 @@ model User {
 
 model Pointage {
   id             Int           @id @default(autoincrement())
-  hour           Float
+  date           DateTime
+  moment         Boolean
+  valeur         Float
   user           User          @relation(fields: [userId], references: [id])
   userId         Int
   motifAbsence   MotifAbsence? @relation(fields: [motifAbsenceId], references: [id])
   motifAbsenceId Int?
-  affaire        Affaire       @relation(fields: [affaireId], references: [id])
-  affaireId      Int
-  entite         Entite        @relation(fields: [entiteId], references: [id])
-  entiteId       Int
+  affaire        Affaire?      @relation(fields: [affaireId], references: [id])
+  affaireId      Int?
+  entite         Entite?        @relation(fields: [entiteId], references: [id])
+  entiteId       Int?
   semaine        Semaine       @relation(fields: [semaineId], references: [id])
   semaineId      Int
 }
@@ -88,6 +90,7 @@ model MotifAbsence {
 
 model Semaine {
   id            Int         @id @default(autoincrement())
+  numero         Int
   user          User        @relation(fields: [userId], references: [id])
   userId        Int
   etatSemaine   EtatSemaine @relation(fields: [etatSemaineId], references: [id])
