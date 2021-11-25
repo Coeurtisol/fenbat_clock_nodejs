@@ -20,6 +20,29 @@ export async function create(req, res) {
   }
 }
 
+export function createPointages(week, userId, semaineId) {
+  const pointages = [];
+  const dates = Pointage.createWeekDays(week);
+  for (let i = 0; i < dates.length; i++) {
+    pointages.push(new Pointage(dates[i], userId, false, semaineId));
+    pointages.push(new Pointage(dates[i], userId, true, semaineId));
+  }
+  return pointages;
+}
+
+export function updatePointages(pointages) {
+  pointages.forEach((p) => {
+    p.affaireId = p.affaireId > 0 ? +p.affaireId : null;
+    p.motifAbsenceId = p.motifAbsenceId > 0 ? +p.motifAbsenceId : null;
+    delete p.semaineId;
+  });
+  try {
+    Promise.all(pointages.map(async (p) => await Pointage.update(p.id, p)));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function update(req, res) {
   // const id = Number(req.params.id);
   // const { pointageFin } = req.body;
