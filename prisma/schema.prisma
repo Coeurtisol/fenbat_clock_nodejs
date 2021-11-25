@@ -30,6 +30,12 @@ model SecteurAffaire {
   affaires Affaire[]
 }
 
+model ClientAffaire {
+  id       Int       @id @default(autoincrement())
+  name     String
+  affaires Affaire[]
+}
+
 model Affaire {
   id               Int            @id @default(autoincrement())
   name             String
@@ -37,6 +43,8 @@ model Affaire {
   secteurAffaireId Int
   typeAffaire      TypeAffaire    @relation(fields: [typeAffaireId], references: [id])
   typeAffaireId    Int
+  clientAffaire    ClientAffaire?  @relation(fields: [clientAffaireId], references: [id])
+  clientAffaireId  Int?
   etat             String
   entite           Entite         @relation(fields: [entiteId], references: [id])
   entiteId         Int
