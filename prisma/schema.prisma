@@ -43,7 +43,7 @@ model Affaire {
   secteurAffaireId Int
   typeAffaire      TypeAffaire    @relation(fields: [typeAffaireId], references: [id])
   typeAffaireId    Int
-  clientAffaire    ClientAffaire?  @relation(fields: [clientAffaireId], references: [id])
+  clientAffaire    ClientAffaire? @relation(fields: [clientAffaireId], references: [id])
   clientAffaireId  Int?
   etat             String
   entite           Entite         @relation(fields: [entiteId], references: [id])
@@ -59,18 +59,20 @@ model Role {
 }
 
 model User {
-  id         Int        @id @default(autoincrement())
-  firstname  String
-  lastname   String
-  accessCode String
-  status     Boolean    @default(true)
-  pointages  Pointage[]
-  semaines   Semaine[]
-  entite     Entite?    @relation(fields: [entiteId], references: [id])
-  entiteId   Int?
-  commandes  Commande[]
-  role       Role       @relation(fields: [roleId], references: [id])
-  roleId     Int
+  id          Int        @id @default(autoincrement())
+  firstname   String
+  lastname    String
+  accessCode  String
+  status      Boolean    @default(true)
+  pointages   Pointage[]
+  semaines    Semaine[]
+  entite      Entite?    @relation(fields: [entiteId], references: [id])
+  entiteId    Int?
+  commandes   Commande[]
+  role        Role       @relation(fields: [roleId], references: [id])
+  roleId      Int
+  email       String?
+  phoneNumber String?
 }
 
 model Pointage {
