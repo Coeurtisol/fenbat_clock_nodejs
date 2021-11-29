@@ -39,6 +39,30 @@ export default class Semaine {
     return data;
   };
 
+  static getAllByWeek = async (annee, numero) => {
+    const data = await semaine.findMany({
+      where: {
+        annee,
+        numero,
+      },
+      select: {
+        id: true,
+        annee: true,
+        numero: true,
+        user: true,
+        etatSemaine: true,
+        pointages: {
+          orderBy: {
+            id: "asc",
+          },
+        },
+        commentaire: true,
+      },
+    });
+    console.log("found semaine", data);
+    return data;
+  };
+
   static findOne = async (annee, numero, userId) => {
     const data = await semaine.findFirst({
       where: {

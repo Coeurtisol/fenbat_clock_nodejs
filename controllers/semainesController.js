@@ -4,6 +4,19 @@ import {
   updatePointages,
 } from "../controllers/pointagesController.js";
 
+export async function getAllByWeek(req, res) {
+  const annee = +req.params.year;
+  const numero = +req.params.week;
+  try {
+    let data;
+    data = await Semaine.getAllByWeek(annee, numero);
+    res.json(data);
+  } catch (error) {
+    console.log(error);
+    res.status(500).end();
+  }
+}
+
 export async function findOne(req, res) {
   const annee = +req.params.year;
   const numero = +req.params.week;
