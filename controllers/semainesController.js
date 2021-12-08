@@ -3,6 +3,7 @@ import {
   createPointages,
   updatePointages,
 } from "../controllers/pointagesController.js";
+import pdfGenerate from "../pdfGenerator.js";
 
 export async function getAllByWeek(req, res) {
   const annee = +req.params.year;
@@ -57,6 +58,7 @@ export async function update(req, res) {
     updatePointages(updatedSemaine.pointages); //enregistre séparement les pointages, pb en remplçant l'array entier
     const data = await Semaine.update(id, updatedSemaine);
     res.json(data);
+    await pdfGenerate(data);
   } catch (error) {
     console.log(error);
     res.status(500).end();
