@@ -9,6 +9,7 @@ import affairesRouter from "./affairesRouter.js";
 import secteursAffaireRouter from "./secteursAffaireRouter.js";
 import typesAffaireRouter from "./typesAffaireRouter.js";
 import clientsAffaireRouter from "./clientsAffaireRouter.js";
+import donneursAffaireRouter from "./donneursAffaireRouter.js";
 import categoriesRouter from "./categoriesRouter.js";
 import articlesRouter from "./articlesRouter.js";
 import fournisseursRouter from "./fournisseursRouter.js";
@@ -21,6 +22,7 @@ apiRouter.use("/affaires", affairesRouter);
 apiRouter.use("/secteursAffaire", secteursAffaireRouter);
 apiRouter.use("/typesAffaire", typesAffaireRouter);
 apiRouter.use("/clientsAffaire", clientsAffaireRouter);
+apiRouter.use("/donneursAffaire", donneursAffaireRouter);
 apiRouter.use("/users", usersRouter);
 
 // Pointages

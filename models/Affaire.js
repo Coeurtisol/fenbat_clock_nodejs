@@ -3,11 +3,12 @@ import prisma from "./Prisma.js";
 const { affaire } = prisma;
 
 export default class Affaire {
-  constructor({ name, secteurAffaireId, typeAffaireId, clientAffaireId, etat, entiteId }) {
+  constructor({ name, secteurAffaireId, typeAffaireId, clientAffaireId, donneurAffaireId, etat, entiteId }) {
     this.name = name;
     this.secteurAffaireId = Number(secteurAffaireId);
     this.typeAffaireId = Number(typeAffaireId);
     this.clientAffaireId = Number(clientAffaireId);
+    this.donneurAffaireId = Number(donneurAffaireId);
     this.etat = etat;
     this.entiteId = Number(entiteId);
   }
@@ -20,6 +21,7 @@ export default class Affaire {
         secteurAffaireId: this.secteurAffaireId,
         typeAffaireId: this.typeAffaireId,
         clientAffaireId: this.clientAffaireId,
+        donneurAffaireId: this.donneurAffaireId,
         etat: this.etat,
         entiteId: this.entiteId,
       },
@@ -47,6 +49,7 @@ export default class Affaire {
         entite: true,
         typeAffaire: true,
         clientAffaire: true,
+        donneurAffaire: true,
         etat: true,
         secteurAffaire: true,
       },

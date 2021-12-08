@@ -29,6 +29,7 @@ export async function update(req, res) {
   updatedAffaire.secteurAffaireId = Number(updatedAffaire.secteurAffaireId);
   updatedAffaire.typeAffaireId = Number(updatedAffaire.typeAffaireId);
   updatedAffaire.clientAffaireId = Number(updatedAffaire.clientAffaireId);
+  updatedAffaire.donneurAffaireId = Number(updatedAffaire.donneurAffaireId);
   try {
     const data = await Affaire.update(id, updatedAffaire);
     res.json(data);
