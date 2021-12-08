@@ -4,17 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch": "nodemon server.js"
+    "watch": "nodemon server.js",
+    "babel":"npx babel --presets @babel/preset-react .\\src\\pdfGenerator.jsx --out-dir ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/preset-react": "^7.16.0",
     "nodemon": "^2.0.14",
     "prisma": "^3.4.2"
   },
   "dependencies": {
     "@prisma/client": "^3.4.2",
+    "@react-pdf/renderer": "^2.0.21",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
