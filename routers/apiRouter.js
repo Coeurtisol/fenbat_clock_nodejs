@@ -1,4 +1,6 @@
 import { Router } from "express";
+import permissionsRouter from "./permissionsRouter.js"
+import rolesRouter from "./rolesRouter.js"
 import usersRouter from "./usersRouter.js"
 import pointagesRouter from "./pointagesRouter.js";
 import semainesRouter from "./semainesRouter.js";
@@ -23,6 +25,8 @@ apiRouter.use("/secteursAffaire", secteursAffaireRouter);
 apiRouter.use("/typesAffaire", typesAffaireRouter);
 apiRouter.use("/clientsAffaire", clientsAffaireRouter);
 apiRouter.use("/donneursAffaire", donneursAffaireRouter);
+apiRouter.use("/permissions", permissionsRouter);
+apiRouter.use("/roles", rolesRouter);
 apiRouter.use("/users", usersRouter);
 
 // Pointages
