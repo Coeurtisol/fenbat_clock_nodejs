@@ -111,6 +111,7 @@ model Pointage {
 model MotifAbsence {
   id        Int        @id @default(autoincrement())
   name      String
+  bloquant  Boolean?
   pointages Pointage[]
 }
 

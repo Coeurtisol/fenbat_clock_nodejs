@@ -3,14 +3,16 @@ import prisma from "./Prisma.js";
 const { motifAbsence } = prisma;
 
 export default class MotifAbsence {
-  constructor({ name }) {
+  constructor({ name, bloquant }) {
     this.name = name;
+    this.bloquant = Number(bloquant) ? true : false;
   }
 
   save = async () => {
     const data = await motifAbsence.create({
       data: {
         name: this.name,
+        bloquant: this.bloquant,
       },
     });
     console.log("save", data);

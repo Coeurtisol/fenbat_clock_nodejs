@@ -25,6 +25,9 @@ export async function create(req, res) {
 export async function update(req, res) {
   const id = Number(req.params.id);
   const updatedMotifAbsence = req.body;
+  updatedMotifAbsence.bloquant = Number(updatedMotifAbsence.bloquant)
+    ? true
+    : false;
   try {
     const data = await MotifAbsence.update(id, updatedMotifAbsence);
     res.json(data);
