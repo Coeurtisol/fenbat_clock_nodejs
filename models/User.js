@@ -3,9 +3,19 @@ import prisma from "./Prisma.js";
 const { user } = prisma;
 
 export default class User {
-  constructor({ firstname, lastname, accessCode, entiteId, roleId }) {
+  constructor({
+    firstname,
+    lastname,
+    email,
+    phoneNumber,
+    accessCode,
+    entiteId,
+    roleId,
+  }) {
     this.firstname = firstname;
     this.lastname = lastname;
+    this.email = email;
+    this.phoneNumber = phoneNumber;
     this.accessCode = accessCode;
     this.entiteId = entiteId;
     this.roleId = roleId;
@@ -16,6 +26,8 @@ export default class User {
       data: {
         firstname: this.firstname,
         lastname: this.lastname,
+        email: this.email,
+        phoneNumber: this.phoneNumber,
         accessCode: this.accessCode,
         entiteId: this.entiteId,
         roleId: this.roleId,
@@ -53,6 +65,8 @@ export default class User {
         id: true,
         firstname: true,
         lastname: true,
+        email: true,
+        phoneNumber: true,
         entite: true,
         role: true,
       },
@@ -67,6 +81,8 @@ export default class User {
         id: true,
         firstname: true,
         lastname: true,
+        email: true,
+        phoneNumber: true,
         entite: true,
         role: true,
       },
