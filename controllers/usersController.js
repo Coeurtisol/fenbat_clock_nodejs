@@ -23,7 +23,9 @@ export async function create(req, res) {
 export async function update(req, res) {
   const id = Number(req.params.id);
   const user = req.body;
-  user.roleId = Number(user.roleId);
+  if (user.roleId) {
+    user.roleId = Number(user.roleId);
+  }
   user.entiteId = Number(user.entiteId) == 0 ? null : Number(user.entiteId);
   if (user.accessCode) {
     user.accessCode = await bcrypt.hash(user.accessCode, 10);
@@ -120,7 +122,7 @@ export async function addAdmin(req, res) {
     lastname: "admin",
     roleId: 1,
     entiteId: null,
-    accessCode: '1234',
+    accessCode: "1234",
   };
   try {
     admin.accessCode = await bcrypt.hash(admin.accessCode, 10);
