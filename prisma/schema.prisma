@@ -125,6 +125,7 @@ model Semaine {
   etatSemaineId Int
   pointages     Pointage[]
   commentaire   String?     @db.Text
+  fichierPDF    String?
 }
 
 model EtatSemaine {

@@ -57,6 +57,7 @@ export default class Semaine {
           },
         },
         commentaire: true,
+        fichierPDF: true,
       },
     });
     console.log("found semaine", data);
@@ -82,6 +83,7 @@ export default class Semaine {
           },
         },
         commentaire: true,
+        fichierPDF: true,
       },
     });
     console.log("found semaine", data);
