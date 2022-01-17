@@ -34,6 +34,8 @@ export default class Entite {
         id: true,
         name: true,
         affaires: true,
+        Users: true,
+        pointages: true,
       },
     });
     // console.log("findAll", data);

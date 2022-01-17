@@ -29,7 +29,13 @@ export default class SecteurAffaire {
   };
 
   static findAll = async () => {
-    const data = await secteurAffaire.findMany();
+    const data = await secteurAffaire.findMany({
+      select : {
+        id : true,
+        name : true,
+        affaires : true
+      }
+    });
     console.log("findAll", data);
     return data;
   };

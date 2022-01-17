@@ -3,7 +3,15 @@ import prisma from "./Prisma.js";
 const { affaire } = prisma;
 
 export default class Affaire {
-  constructor({ name, secteurAffaireId, typeAffaireId, clientAffaireId, donneurAffaireId, etat, entiteId }) {
+  constructor({
+    name,
+    secteurAffaireId,
+    typeAffaireId,
+    clientAffaireId,
+    donneurAffaireId,
+    etat,
+    entiteId,
+  }) {
     this.name = name;
     this.secteurAffaireId = Number(secteurAffaireId);
     this.typeAffaireId = Number(typeAffaireId);
@@ -52,6 +60,8 @@ export default class Affaire {
         donneurAffaire: true,
         etat: true,
         secteurAffaire: true,
+        pointages: true,
+        commandes: true,
       },
     });
     console.log("findAll", data);

@@ -31,7 +31,14 @@ export default class MotifAbsence {
   };
 
   static findAll = async () => {
-    const data = await motifAbsence.findMany();
+    const data = await motifAbsence.findMany({
+      select: {
+        id: true,
+        name: true,
+        pointages: true,
+        bloquant: true,
+      },
+    });
     console.log("findAll", data);
     return data;
   };

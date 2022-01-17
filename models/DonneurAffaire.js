@@ -29,7 +29,13 @@ export default class DonneurAffaire {
   };
 
   static findAll = async () => {
-    const data = await donneurAffaire.findMany();
+    const data = await donneurAffaire.findMany({
+      select: {
+        id: true,
+        name: true,
+        affaires: true,
+      },
+    });
     console.log("findAll", data);
     return data;
   };

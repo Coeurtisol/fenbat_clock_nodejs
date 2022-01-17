@@ -38,6 +38,7 @@ export default class Role {
         permission: {
           select: { id: true, name: true },
         },
+        users: true,
       },
     });
     // console.log("getAll", data);

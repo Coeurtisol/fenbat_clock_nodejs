@@ -29,7 +29,13 @@ export default class TypeAffaire {
   };
 
   static findAll = async () => {
-    const data = await typeAffaire.findMany();
+    const data = await typeAffaire.findMany({
+      select: {
+        id: true,
+        name: true,
+        affaires: true,
+      },
+    });
     console.log("findAll", data);
     return data;
   };

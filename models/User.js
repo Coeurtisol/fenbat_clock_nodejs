@@ -85,6 +85,8 @@ export default class User {
         phoneNumber: true,
         entite: true,
         role: true,
+        pointages: true,
+        commandes: true,
       },
     });
     // console.log("findAll", data);
