@@ -26,3 +26,15 @@ saisie (fait par le salarié: enclenche une save PDF, notifie le n+1)
 Valide 1 (fait par le responsable de prod: valide et notifie le n+2 OU modifie et notifie le n+2. ne modifie pas le save pdf)
 Valide 2 (fait par le responsable de site: valide ou modifie. ne modifie pas le save pdf, interdit toute modif)
 Refusé (avec commentaire, retour saisie)
+
+
+### saisie heures manuelle
+heure par defaut 8h 12h - 12h30 16h30 (sauf vendredi 12h30 15h30)
+
+
+### Données
+
+
+### PDF
+1 version employé (écrasée quand employé sauvegarde/envoie pour validation)
+1 version validé (écrasée quand resp prod/site valide)

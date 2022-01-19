@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
     margin: "auto",
     // border: "1px solid #000000",
     textAlign: "center",
-    fontSize: "8px"
+    fontSize: "8px",
+    borderCollapse: "collapsed"
   },
   tableRowHead: {
     flexDirection: "row",

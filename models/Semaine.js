@@ -102,6 +102,7 @@ export default class Semaine {
         etatSemaineId: updatedSemaine.etatSemaineId,
         affaireId: updatedSemaine.affaireId,
         commentaire: updatedSemaine.commentaire,
+        fichierPDF: updatedSemaine.fichierPDF,
         // pointages: {
         //   updateMany: {
         //     where: {},
