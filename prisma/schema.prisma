@@ -16,30 +16,40 @@ model Entite {
   Users     User[]
   affaires  Affaire[]
   pointages Pointage[]
+
+  @@map("entite")
 }
 
 model TypeAffaire {
   id       Int       @id @default(autoincrement())
   name     String
   affaires Affaire[]
+
+  @@map("typeaffaire")
 }
 
 model SecteurAffaire {
   id       Int       @id @default(autoincrement())
   name     String
   affaires Affaire[]
+
+  @@map("secteuraffaire")
 }
 
 model ClientAffaire {
   id       Int       @id @default(autoincrement())
   name     String
   affaires Affaire[]
+
+  @@map("clientaffaire")
 }
 
 model DonneurAffaire {
   id       Int       @id @default(autoincrement())
   name     String
   affaires Affaire[]
+
+  @@map("donneuraffaire")
 }
 
 model Affaire {
@@ -58,12 +68,16 @@ model Affaire {
   entiteId         Int
   pointages        Pointage[]
   commandes        Commande[]
+
+  @@map("affaire")
 }
 
 model Permission {
   id    Int    @id @default(autoincrement())
   name  String
   roles Role[]
+
+  @@map("permission")
 }
 
 model Role {
@@ -72,6 +86,8 @@ model Role {
   users        User[]
   permission   Permission @relation(fields: [permissionId], references: [id])
   permissionId Int
+
+  @@map("role")
 }
 
 model User {
@@ -89,6 +105,8 @@ model User {
   roleId      Int
   email       String?
   phoneNumber String?
+
+  @@map("user")
 }
 
 model Pointage {
@@ -106,6 +124,8 @@ model Pointage {
   entiteId       Int?
   semaine        Semaine       @relation(fields: [semaineId], references: [id])
   semaineId      Int
+
+  @@map("pointage")
 }
 
 model MotifAbsence {
@@ -113,6 +133,8 @@ model MotifAbsence {
   name      String
   bloquant  Boolean?
   pointages Pointage[]
+
+  @@map("motifabsence")
 }
 
 model Semaine {
@@ -126,12 +148,16 @@ model Semaine {
   pointages     Pointage[]
   commentaire   String?     @db.Text
   fichierPDF    String?
+
+  @@map("semaine")
 }
 
 model EtatSemaine {
   id       Int       @id @default(autoincrement())
   name     String
   semaines Semaine[]
+
+  @@map("etatsemaine")
 }
 
 model Commande {
@@ -146,26 +172,46 @@ model Commande {
   etat          Boolean
   affaire       Affaire?    @relation(fields: [affaireId], references: [id])
   affaireId     Int?
+
+  @@map("commande")
 }
 
 model Article {
-  id           Int           @id @default(autoincrement())
+  id           Int                  @id @default(autoincrement())
   name         String
-  categorie    Categorie?    @relation(fields: [categorieId], references: [id])
+  categorie    Categorie?           @relation(fields: [categorieId], references: [id])
   categorieId  Int?
   commandes    Commande[]
-  fournisseurs Fournisseur[]
+  fournisseurs ArticleFournisseur[]
+
+  @@map("article")
 }
 
 model Categorie {
   id       Int       @id @default(autoincrement())
   name     String
   articles Article[]
+
+  @@map("categorie")
 }
 
 model Fournisseur {
-  id        Int        @id @default(autoincrement())
+  id        Int                  @id @default(autoincrement())
   name      String
-  articles  Article[]
+  articles  ArticleFournisseur[]
   commandes Commande[]
+
+  @@map("fournisseur")
+}
+
+model ArticleFournisseur {
+  article       Article     @relation(fields: [articleId], references: [id])
+  articleId     Int
+  fournisseur   Fournisseur @relation(fields: [fournisseurId], references: [id])
+  fournisseurId Int
+  assignedAt    DateTime    @default(now())
+  assignedBy    String
+
+  @@id([articleId, fournisseurId])
+  @@map("_articletofournisseur")
 }
