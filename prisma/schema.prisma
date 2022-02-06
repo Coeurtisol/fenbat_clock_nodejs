@@ -73,7 +73,7 @@ model Affaire {
 }
 
 model Permission {
-  id    Int    @id @default(autoincrement())
+  id    Int    @id
   name  String
   roles Role[]
 
@@ -138,22 +138,23 @@ model MotifAbsence {
 }
 
 model Semaine {
-  id            Int         @id @default(autoincrement())
-  annee         Int
-  numero        Int
-  user          User        @relation(fields: [userId], references: [id])
-  userId        Int
-  etatSemaine   EtatSemaine @relation(fields: [etatSemaineId], references: [id])
-  etatSemaineId Int
-  pointages     Pointage[]
-  commentaire   String?     @db.Text
-  fichierPDF    String?
+  id             Int         @id @default(autoincrement())
+  annee          Int
+  numero         Int
+  user           User        @relation(fields: [userId], references: [id])
+  userId         Int
+  etatSemaine    EtatSemaine @relation(fields: [etatSemaineId], references: [id])
+  etatSemaineId  Int
+  pointages      Pointage[]
+  commentaire    String?     @db.Text
+  PDFemploye     String?
+  PDFresponsable String?
 
   @@map("semaine")
 }
 
 model EtatSemaine {
-  id       Int       @id @default(autoincrement())
+  id       Int       @id
   name     String
   semaines Semaine[]
 

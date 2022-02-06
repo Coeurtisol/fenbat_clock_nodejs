@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "watch": "nodemon server.js",
-    "babel":"npx babel --presets @babel/preset-react .\\src\\pdfGenerator.jsx --out-dir ."
+    "babel":"npx babel --presets @babel/preset-react .\\src\\pdfGenerator.jsx --out-dir .",
+    "babel-watch":"npx babel --presets @babel/preset-react .\\src\\pdfGenerator.jsx --watch --out-dir ."
   },
   "keywords": [],
   "author": "",

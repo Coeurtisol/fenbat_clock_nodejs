@@ -1,7 +1,7 @@
 import { Router } from "express";
-import permissionsRouter from "./permissionsRouter.js"
-import rolesRouter from "./rolesRouter.js"
-import usersRouter from "./usersRouter.js"
+import permissionsRouter from "./permissionsRouter.js";
+import rolesRouter from "./rolesRouter.js";
+import usersRouter from "./usersRouter.js";
 import pointagesRouter from "./pointagesRouter.js";
 import semainesRouter from "./semainesRouter.js";
 import etatsSemaineRouter from "./etatsSemaineRouter.js";
@@ -39,5 +39,11 @@ apiRouter.use("/motifsAbsence", motifsAbsenceRouter);
 apiRouter.use("/categories", categoriesRouter);
 apiRouter.use("/articles", articlesRouter);
 apiRouter.use("/fournisseurs", fournisseursRouter);
+
+// Autres
+apiRouter.use("/ip", (req, res) => {
+  const ip = req.socket.remoteAddress;
+  res.status(200).end(ip);
+});
 
 export default apiRouter;

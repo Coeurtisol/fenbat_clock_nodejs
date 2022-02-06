@@ -57,7 +57,8 @@ export default class Semaine {
           },
         },
         commentaire: true,
-        fichierPDF: true,
+        PDFemploye: true,
+        PDFresponsable: true,
       },
     });
     console.log("found semaine", data);
@@ -83,7 +84,8 @@ export default class Semaine {
           },
         },
         commentaire: true,
-        fichierPDF: true,
+        PDFemploye: true,
+        PDFresponsable: true,
       },
     });
     console.log("found semaine", data);
@@ -102,7 +104,8 @@ export default class Semaine {
         etatSemaineId: updatedSemaine.etatSemaineId,
         affaireId: updatedSemaine.affaireId,
         commentaire: updatedSemaine.commentaire,
-        fichierPDF: updatedSemaine.fichierPDF,
+        PDFemploye: updatedSemaine.PDFemploye,
+        PDFresponsable: updatedSemaine.PDFresponsable,
         // pointages: {
         //   updateMany: {
         //     where: {},

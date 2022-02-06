@@ -10,48 +10,62 @@ const {
   renderToFile
 } = reactPkg;
 const styles = StyleSheet.create({
+  cadreInfoContainer: {
+    width: "50%",
+    marginLeft: "25%",
+    marginTop: "16px",
+    textAlign: "center",
+    border: "1px solid #000000",
+    padding: "8px"
+  },
+  cadreInfo: {
+    fontSize: 16
+  },
+  cadreInfoBoldSpan: {
+    fontSize: 16,
+    fontWeight: "bold"
+  },
+  cadreInfoPrenomNom: {
+    fontSize: 24,
+    fontWeight: "extrabold",
+    marginBottom: "16px"
+  },
   table: {
     display: "table",
-    margin: "auto",
-    // border: "1px solid #000000",
+    marginHorizontal: "auto",
+    marginTop: "50px",
     textAlign: "center",
     fontSize: "8px",
-    borderCollapse: "collapsed"
+    border: "1px solid #000000"
   },
   tableRowHead: {
     flexDirection: "row",
-    margin: "auto",
-    fontWeight: "bold" // borderTop: "1px solid #000000",
-    // borderBottom: "1px solid #000000",
-
+    fontWeight: "bold",
+    borderRight: "1px solid #000000",
+    borderBottom: "1px solid #000000"
   },
   tableRow: {
     flexDirection: "row",
-    margin: "auto" // borderBottom: "1px solid #000000",
-
+    borderRight: "1px solid #000000",
+    borderBottom: "1px solid #000000"
   },
   tableCell6: {
-    // border: "1px solid #000000",
     width: "6%",
-    paddingVertical: "6px",
-    border: "1px solid #000000"
+    paddingVertical: "6px"
   },
   tableCell12: {
-    // border: "1px solid #000000",
     width: "12%",
-    paddingVertical: "6px",
-    border: "1px solid #000000"
+    paddingVertical: "6px"
   },
   tableCell8: {
-    // border: "1px solid #000000",
     width: "8%",
-    paddingVertical: "6px",
-    border: "1px solid #000000"
+    paddingVertical: "6px"
   }
 });
 
 const MyDocument = ({
-  semaine
+  semaine,
+  PDFversion
 }) => {
   // Ligne nom du jour
   const dateOptions = {
@@ -65,6 +79,8 @@ const MyDocument = ({
     return date;
   };
 
+  const debutSemaine = FormatDateColumn(semaine.pointages[0].date);
+  const finSemaine = FormatDateColumn(semaine.pointages[11].date);
   let nameDayLine = [];
 
   for (let i = 0; i < semaine.pointages.length; i += 2) {
@@ -146,6 +162,16 @@ const MyDocument = ({
   return /*#__PURE__*/React.createElement(Document, null, /*#__PURE__*/React.createElement(Page, {
     orientation: "landscape"
   }, /*#__PURE__*/React.createElement(View, {
+    style: styles.cadreInfoContainer
+  }, /*#__PURE__*/React.createElement(Text, {
+    style: styles.cadreInfoPrenomNom
+  }, semaine.user.firstname, " ", semaine.user.lastname), /*#__PURE__*/React.createElement(Text, {
+    style: styles.cadreInfo
+  }, "Ann\xE9e : ", semaine.annee), /*#__PURE__*/React.createElement(Text, {
+    style: styles.cadreInfo
+  }, "Semaine : ", semaine.numero, " (", debutSemaine, " au ", finSemaine, ")"), /*#__PURE__*/React.createElement(Text, {
+    style: styles.cadreInfo
+  }, "\xC9tat : ", semaine.etatSemaine.name)), /*#__PURE__*/React.createElement(View, {
     style: styles.table
   }, /*#__PURE__*/React.createElement(View, {
     style: styles.tableRowHead
@@ -205,7 +231,9 @@ const pdfGenerate = async semaine => {
   // }
   // const formatedDate = `${year}${month}${day}`;
   const userName = `${semaine.user.firstname}${semaine.user.lastname}`;
-  const fileName = `${userName}-${semaine.annee}-${semaine.numero}`;
+  let version;
+  if (semaine.PDFversion == "PDFemploye") version = 0;else version = 1;
+  const fileName = `${userName}-${semaine.annee}-${semaine.numero}-${version}`;
   await renderToFile( /*#__PURE__*/React.createElement(MyDocument, {
     semaine: semaine
   }), `${path.resolve()}/documents/pdf/${fileName}.pdf`);

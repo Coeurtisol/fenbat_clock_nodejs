@@ -6,6 +6,7 @@ import {
   updatePointages,
 } from "../controllers/pointagesController.js";
 import pdfGenerate from "../pdfGenerator.js";
+import { version } from "os";
 
 export async function getAllByWeek(req, res) {
   const annee = +req.params.year;
@@ -55,14 +56,17 @@ export async function create(req, res) {
 
 export async function update(req, res) {
   const id = Number(req.params.id);
-  const updatedSemaine = req.body;
+  const { userId, semaine } = req.body;
+  let PDFversion = "PDF";
+  if (userId == semaine.user.id) PDFversion += "employe";
+  else PDFversion += "responsable";
   try {
-    updatePointages(updatedSemaine.pointages); //enregistre séparement les pointages, pb en remplçant l'array entier
-    const data = await Semaine.update(id, updatedSemaine);
-    await pdfGenerate(data);
+    updatePointages(semaine.pointages); //enregistre séparement les pointages, pb en remplçant l'array entier
+    const data = await Semaine.update(id, semaine);
+    await pdfGenerate({ ...data, PDFversion });
     const dataT = await Semaine.update(id, {
-      ...updatedSemaine,
-      fichierPDF: "1",
+      ...semaine,
+      [PDFversion]: "1",
     });
     res.json(dataT);
   } catch (error) {
@@ -72,10 +76,8 @@ export async function update(req, res) {
 }
 
 export async function getPDF(req, res) {
-  const prenomNom = req.params.prenomNom;
-  const annee = req.params.annee;
-  const semaine = req.params.semaine;
-  const fileName = `${prenomNom}-${annee}-${semaine}.pdf`;
+  const { prenomNom, annee, semaine, version } = req.params;
+  const fileName = `${prenomNom}-${annee}-${semaine}-${version}.pdf`;
 
   try {
     const stats = await fsPromise.stat("./documents/pdf/" + fileName);

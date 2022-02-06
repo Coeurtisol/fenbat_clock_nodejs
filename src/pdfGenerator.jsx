@@ -4,46 +4,60 @@ import reactPkg from "@react-pdf/renderer";
 const { StyleSheet, Page, View, Text, Document, renderToFile } = reactPkg;
 
 const styles = StyleSheet.create({
+  cadreInfoContainer: {
+    width: "50%",
+    marginLeft: "25%",
+    marginTop: "16px",
+    textAlign: "center",
+    border: "1px solid #000000",
+    padding: "8px"
+  },
+  cadreInfo: {
+    fontSize: 16,
+  },
+  cadreInfoBoldSpan: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  cadreInfoPrenomNom: {
+    fontSize: 24,
+    fontWeight: "extrabold",
+    marginBottom: "16px"
+  },
   table: {
     display: "table",
-    margin: "auto",
-    // border: "1px solid #000000",
+    marginHorizontal: "auto",
+    marginTop: "50px",
     textAlign: "center",
     fontSize: "8px",
+    border: "1px solid #000000",
   },
   tableRowHead: {
     flexDirection: "row",
-    margin: "auto",
     fontWeight: "bold",
-    // borderTop: "1px solid #000000",
-    // borderBottom: "1px solid #000000",
+    borderRight: "1px solid #000000",
+    borderBottom: "1px solid #000000",
   },
   tableRow: {
     flexDirection: "row",
-    margin: "auto",
-    // borderBottom: "1px solid #000000",
+    borderRight: "1px solid #000000",
+    borderBottom: "1px solid #000000",
   },
   tableCell6: {
-    // border: "1px solid #000000",
     width: "6%",
     paddingVertical: "6px",
-    border: "1px solid #000000",
   },
   tableCell12: {
-    // border: "1px solid #000000",
     width: "12%",
     paddingVertical: "6px",
-    border: "1px solid #000000",
   },
   tableCell8: {
-    // border: "1px solid #000000",
     width: "8%",
     paddingVertical: "6px",
-    border: "1px solid #000000",
   },
 });
 
-const MyDocument = ({ semaine }) => {
+const MyDocument = ({ semaine, PDFversion }) => {
   // Ligne nom du jour
   const dateOptions = {
     weekday: "short",
@@ -54,6 +68,8 @@ const MyDocument = ({ semaine }) => {
     const date = new Date(dateObject).toLocaleDateString("fr-FR", dateOptions);
     return date;
   };
+  const debutSemaine = FormatDateColumn(semaine.pointages[0].date);
+  const finSemaine = FormatDateColumn(semaine.pointages[11].date);
 
   let nameDayLine = [];
   for (let i = 0; i < semaine.pointages.length; i += 2) {
@@ -125,6 +141,18 @@ const MyDocument = ({ semaine }) => {
   return (
     <Document>
       <Page orientation="landscape">
+        <View style={styles.cadreInfoContainer}>
+          <Text style={styles.cadreInfoPrenomNom}>
+            {semaine.user.firstname} {semaine.user.lastname}
+          </Text>
+          <Text style={styles.cadreInfo}>Année : {semaine.annee}</Text>
+          <Text style={styles.cadreInfo}>
+            Semaine : {semaine.numero} ({debutSemaine} au {finSemaine})
+          </Text>
+          <Text style={styles.cadreInfo}>
+            État : {semaine.etatSemaine.name}
+          </Text>
+        </View>
         <View style={styles.table}>
           <View style={styles.tableRowHead}>
             <Text style={styles.tableCell6}> </Text>
@@ -180,7 +208,12 @@ const pdfGenerate = async (semaine) => {
   // }
   // const formatedDate = `${year}${month}${day}`;
   const userName = `${semaine.user.firstname}${semaine.user.lastname}`;
-  const fileName = `${userName}-${semaine.annee}-${semaine.numero}`;
+  let version;
+  if (semaine.PDFversion == "PDFemploye") version = 0;
+  else version = 1;
+
+  const fileName = `${userName}-${semaine.annee}-${semaine.numero}-${version}`;
+
   await renderToFile(
     <MyDocument semaine={semaine} />,
     `${path.resolve()}/documents/pdf/${fileName}.pdf`
