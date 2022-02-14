@@ -9,6 +9,7 @@ export default class User {
     email,
     phoneNumber,
     accessCode,
+    password,
     entiteId,
     roleId,
   }) {
@@ -17,6 +18,7 @@ export default class User {
     this.email = email;
     this.phoneNumber = phoneNumber;
     this.accessCode = accessCode;
+    this.password = password;
     this.entiteId = entiteId;
     this.roleId = roleId;
   }
@@ -29,6 +31,7 @@ export default class User {
         email: this.email,
         phoneNumber: this.phoneNumber,
         accessCode: this.accessCode,
+        password: this.password,
         entiteId: this.entiteId,
         roleId: this.roleId,
       },
@@ -45,6 +48,25 @@ export default class User {
       select: {
         id: true,
         accessCode: true,
+        firstname: true,
+        lastname: true,
+        role: true,
+        entite: true,
+        status: true,
+      },
+    });
+    console.log("login", userFound);
+    return userFound;
+  };
+
+  static externalLogin = async (email) => {
+    const userFound = await user.findUnique({
+      where: {
+        email,
+      },
+      select: {
+        id: true,
+        password: true,
         firstname: true,
         lastname: true,
         role: true,

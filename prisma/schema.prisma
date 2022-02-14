@@ -95,6 +95,7 @@ model User {
   firstname   String
   lastname    String
   accessCode  String
+  password    String?
   status      Boolean    @default(true)
   pointages   Pointage[]
   semaines    Semaine[]
@@ -103,7 +104,7 @@ model User {
   commandes   Commande[]
   role        Role       @relation(fields: [roleId], references: [id])
   roleId      Int
-  email       String?
+  email       String?    @unique
   phoneNumber String?
 
   @@map("user")

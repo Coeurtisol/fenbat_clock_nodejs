@@ -15,6 +15,7 @@ import donneursAffaireRouter from "./donneursAffaireRouter.js";
 import categoriesRouter from "./categoriesRouter.js";
 import articlesRouter from "./articlesRouter.js";
 import fournisseursRouter from "./fournisseursRouter.js";
+import authRouter from "./authRouter.js";
 
 const apiRouter = Router();
 
@@ -28,6 +29,7 @@ apiRouter.use("/donneursAffaire", donneursAffaireRouter);
 apiRouter.use("/permissions", permissionsRouter);
 apiRouter.use("/roles", rolesRouter);
 apiRouter.use("/users", usersRouter);
+apiRouter.use("/auth", authRouter);
 
 // Pointages
 apiRouter.use("/semaines", semainesRouter);
@@ -39,11 +41,5 @@ apiRouter.use("/motifsAbsence", motifsAbsenceRouter);
 apiRouter.use("/categories", categoriesRouter);
 apiRouter.use("/articles", articlesRouter);
 apiRouter.use("/fournisseurs", fournisseursRouter);
-
-// Autres
-apiRouter.use("/ip", (req, res) => {
-  const ip = req.socket.remoteAddress;
-  res.status(200).end(ip);
-});
 
 export default apiRouter;

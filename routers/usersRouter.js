@@ -1,6 +1,5 @@
 import { Router } from "express";
 import {
-  login,
   findOne,
   findAll,
   create,
@@ -12,7 +11,6 @@ import {
 
 const usersRouter = Router();
 
-usersRouter.post("/auth/login", login);
 usersRouter.get("/addadmin", addAdmin);
 usersRouter.get("/:id", findOne);
 usersRouter.get("/", findAll);
