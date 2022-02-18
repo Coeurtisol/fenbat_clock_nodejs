@@ -16,30 +16,31 @@ import categoriesRouter from "./categoriesRouter.js";
 import articlesRouter from "./articlesRouter.js";
 import fournisseursRouter from "./fournisseursRouter.js";
 import authRouter from "./authRouter.js";
+import { hasValidToken } from "../middlewares/authMiddleware.js";
 
 const apiRouter = Router();
 
 // Generalités
-apiRouter.use("/entites", entitesRouter);
-apiRouter.use("/affaires", affairesRouter);
-apiRouter.use("/secteursAffaire", secteursAffaireRouter);
-apiRouter.use("/typesAffaire", typesAffaireRouter);
-apiRouter.use("/clientsAffaire", clientsAffaireRouter);
-apiRouter.use("/donneursAffaire", donneursAffaireRouter);
-apiRouter.use("/permissions", permissionsRouter);
-apiRouter.use("/roles", rolesRouter);
+apiRouter.use("/entites", hasValidToken, entitesRouter);
+apiRouter.use("/affaires", hasValidToken, affairesRouter);
+apiRouter.use("/secteursAffaire", hasValidToken, secteursAffaireRouter);
+apiRouter.use("/typesAffaire", hasValidToken, typesAffaireRouter);
+apiRouter.use("/clientsAffaire", hasValidToken, clientsAffaireRouter);
+apiRouter.use("/donneursAffaire", hasValidToken, donneursAffaireRouter);
+apiRouter.use("/permissions", hasValidToken, permissionsRouter);
+apiRouter.use("/roles", hasValidToken, rolesRouter);
 apiRouter.use("/users", usersRouter);
 apiRouter.use("/auth", authRouter);
 
 // Pointages
-apiRouter.use("/semaines", semainesRouter);
-apiRouter.use("/etatsSemaine", etatsSemaineRouter);
-apiRouter.use("/pointages", pointagesRouter);
-apiRouter.use("/motifsAbsence", motifsAbsenceRouter);
+apiRouter.use("/semaines", hasValidToken, semainesRouter);
+apiRouter.use("/etatsSemaine", hasValidToken, etatsSemaineRouter);
+apiRouter.use("/pointages", hasValidToken, pointagesRouter);
+apiRouter.use("/motifsAbsence", hasValidToken, motifsAbsenceRouter);
 
 // Commandes
-apiRouter.use("/categories", categoriesRouter);
-apiRouter.use("/articles", articlesRouter);
-apiRouter.use("/fournisseurs", fournisseursRouter);
+apiRouter.use("/categories", hasValidToken, categoriesRouter);
+apiRouter.use("/articles", hasValidToken, articlesRouter);
+apiRouter.use("/fournisseurs", hasValidToken, fournisseursRouter);
 
 export default apiRouter;
