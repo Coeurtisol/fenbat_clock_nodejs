@@ -17,14 +17,12 @@ export default class Categorie {
     return data;
   };
 
-  static update = async ({ id, categorie }) => {
+  static update = async (id, updatedCategorie) => {
     const data = await categorie.update({
       where: {
         id,
       },
-      data: {
-        categorie,
-      },
+      data: updatedCategorie,
     });
     console.log("update", data);
     return data;

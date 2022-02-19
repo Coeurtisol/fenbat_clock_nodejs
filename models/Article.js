@@ -19,14 +19,12 @@ export default class Article {
     return data;
   };
 
-  static update = async ({ id, article }) => {
+  static update = async (id, updatedArticle) => {
     const data = await article.update({
       where: {
         id,
       },
-      data: {
-        article,
-      },
+      data: updatedArticle,
     });
     console.log("update", data);
     return data;
