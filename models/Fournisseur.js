@@ -17,14 +17,12 @@ export default class Fournisseur {
     return data;
   };
 
-  static update = async ({id, fournisseur }) => {
+  static update = async (id, updatedournisseur) => {
     const data = await fournisseur.update({
       where: {
-        id
+        id,
       },
-      data: {
-        fournisseur,
-      },
+      data: updatedournisseur,
     });
     console.log("update", data);
     return data;

@@ -3,9 +3,9 @@ import prisma from "./Prisma.js";
 const { article } = prisma;
 
 export default class Article {
-  constructor({ name, categorieId = null }) {
+  constructor({ name, categorieId }) {
     this.name = name;
-    this.categorieId = categorieId;
+    this.categorieId = Number(categorieId) || null;
   }
 
   save = async () => {
