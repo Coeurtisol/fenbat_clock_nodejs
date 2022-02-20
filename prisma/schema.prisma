@@ -207,12 +207,10 @@ model Fournisseur {
 }
 
 model ArticleFournisseur {
-  article       Article     @relation(fields: [articleId], references: [id])
+  article       Article     @relation(fields: [articleId], references: [id], onDelete: Cascade)
   articleId     Int
-  fournisseur   Fournisseur @relation(fields: [fournisseurId], references: [id])
+  fournisseur   Fournisseur @relation(fields: [fournisseurId], references: [id], onDelete: Cascade)
   fournisseurId Int
-  assignedAt    DateTime    @default(now())
-  assignedBy    String
 
   @@id([articleId, fournisseurId])
   @@map("_articletofournisseur")

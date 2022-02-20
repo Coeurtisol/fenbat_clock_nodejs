@@ -1,6 +1,6 @@
 import prisma from "./Prisma.js";
 
-const { fournisseur } = prisma;
+const { fournisseur, articleFournisseur } = prisma;
 
 export default class Fournisseur {
   constructor({ name }) {
@@ -29,7 +29,17 @@ export default class Fournisseur {
   };
 
   static findAll = async () => {
-    const data = await fournisseur.findMany();
+    const data = await fournisseur.findMany({
+      select: {
+        id: true,
+        name: true,
+        articles: {
+          select: {
+            article: true,
+          },
+        },
+      },
+    });
     console.log("findAll", data);
     return data;
   };
@@ -40,7 +50,13 @@ export default class Fournisseur {
         id,
       },
     });
-    console.log("delete", data);
+    const deletedRelations = await articleFournisseur.deleteMany({
+      where: {
+        fournisseurId: id,
+      },
+    });
+    console.log("deleted fournisseur", data);
+    console.log("deleted relations", deletedRelations);
     return data;
   };
 }

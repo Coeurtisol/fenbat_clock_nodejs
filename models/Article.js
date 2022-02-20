@@ -1,11 +1,12 @@
 import prisma from "./Prisma.js";
 
-const { article } = prisma;
+const { article, articleFournisseur } = prisma;
 
 export default class Article {
-  constructor({ name, categorieId }) {
+  constructor({ name, categorieId, fournisseurs = [] }) {
     this.name = name;
     this.categorieId = Number(categorieId) || null;
+    this.fournisseurs = fournisseurs.map(Number);
   }
 
   save = async () => {
@@ -15,17 +16,45 @@ export default class Article {
         categorieId: this.categorieId,
       },
     });
-    console.log("save", data);
+    if (this.fournisseurs.length) {
+      const assignments = this.fournisseurs.map((f) => {
+        return { fournisseurId: f, articleId: data.id };
+      });
+      const data2 = await articleFournisseur.createMany({
+        data: assignments,
+      });
+      console.log("save2", data2);
+    }
+    console.log("save1", data);
     return data;
   };
 
-  static update = async (id, updatedArticle) => {
+  update = async (id) => {
     const data = await article.update({
       where: {
         id,
       },
-      data: updatedArticle,
+      data: {
+        name: this.name,
+        categorieId: this.categorieId,
+      },
     });
+    const deletedRelations = await articleFournisseur.deleteMany({
+      where: {
+        articleId: id,
+      },
+    });
+    console.log("deleted relations", deletedRelations);
+    if (this.fournisseurs.length) {
+      const assignments = this.fournisseurs.map((f) => {
+        return { fournisseurId: f, articleId: id };
+      });
+      const data2 = await articleFournisseur.createMany({
+        skipDuplicates: true,
+        data: assignments,
+      });
+      console.log("save2", data2);
+    }
     console.log("update", data);
     return data;
   };
@@ -36,6 +65,11 @@ export default class Article {
         id: true,
         name: true,
         categorie: true,
+        fournisseurs: {
+          select: {
+            fournisseur: true,
+          },
+        },
       },
     });
     console.log("findAll", data);
@@ -48,7 +82,13 @@ export default class Article {
         id,
       },
     });
-    console.log("delete", data);
+    const deletedRelations = await articleFournisseur.deleteMany({
+      where: {
+        articleId: id,
+      },
+    });
+    console.log("deleted article", data);
+    console.log("deleted relations", deletedRelations);
     return data;
   };
 }
