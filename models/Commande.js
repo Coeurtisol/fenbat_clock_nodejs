@@ -28,12 +28,14 @@ export default class Commande {
     return data;
   };
 
-  static update = async (id, updatedCommande) => {
+  static valider = async (id) => {
     const data = await commande.update({
       where: {
         id,
       },
-      data: updatedCommande,
+      data: {
+        etat: true,
+      },
     });
     console.log("update", data);
     return data;
@@ -43,11 +45,34 @@ export default class Commande {
     const data = await commande.findMany({
       select: {
         id: true,
-        name: true,
-        articles: true,
+        user: true,
+        article: true,
+        affaire: true,
+        fournisseur: true,
+        etat: true,
+        quantite: true,
       },
     });
     console.log("findAll", data);
+    return data;
+  };
+
+  static findAllByUser = async (id) => {
+    const data = await commande.findMany({
+      where: {
+        userId: id,
+      },
+      select: {
+        id: true,
+        user: true,
+        article: true,
+        affaire: true,
+        fournisseur: true,
+        etat: true,
+        quantite: true,
+      },
+    });
+    console.log("findAllByUser", data);
     return data;
   };
 
