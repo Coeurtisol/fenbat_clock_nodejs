@@ -15,6 +15,7 @@ import donneursAffaireRouter from "./donneursAffaireRouter.js";
 import categoriesRouter from "./categoriesRouter.js";
 import articlesRouter from "./articlesRouter.js";
 import fournisseursRouter from "./fournisseursRouter.js";
+import commandesRouter from "./commandesRouter.js";
 import authRouter from "./authRouter.js";
 import { hasValidToken } from "../middlewares/authMiddleware.js";
 
@@ -42,5 +43,6 @@ apiRouter.use("/motifsAbsence", hasValidToken, motifsAbsenceRouter);
 apiRouter.use("/categories", hasValidToken, categoriesRouter);
 apiRouter.use("/articles", hasValidToken, articlesRouter);
 apiRouter.use("/fournisseurs", hasValidToken, fournisseursRouter);
+apiRouter.use("/commandes", hasValidToken, commandesRouter);
 
 export default apiRouter;
