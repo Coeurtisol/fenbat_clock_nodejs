@@ -49,7 +49,13 @@ export default class Semaine {
         id: true,
         annee: true,
         numero: true,
-        user: true,
+        user: {
+          select: {
+            id: true,
+            firstname: true,
+            lastname: true,
+          },
+        },
         etatSemaine: true,
         pointages: {
           orderBy: {
@@ -76,7 +82,12 @@ export default class Semaine {
         id: true,
         annee: true,
         numero: true,
-        user: true,
+        user: {
+          select: {
+            firstname: true,
+            lastname: true,
+          },
+        },
         etatSemaine: true,
         pointages: {
           orderBy: {

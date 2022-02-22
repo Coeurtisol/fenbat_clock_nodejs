@@ -115,6 +115,18 @@ export default class User {
     return data;
   };
 
+  static findAllActive = async () => {
+    const data = await user.findMany({
+      select: {
+        id: true,
+        firstname: true,
+        lastname: true,
+        role: true,
+      },
+    });
+    return data;
+  };
+
   static update = async (id, updatedUser) => {
     const data = await user.update({
       where: {

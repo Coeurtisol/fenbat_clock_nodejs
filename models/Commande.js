@@ -22,6 +22,7 @@ export default class Commande {
         quantite: this.quantite,
         etat: this.etat,
         affaireId: this.affaireId,
+        valideeLe: null
       },
     });
     console.log("save", data);
@@ -35,6 +36,7 @@ export default class Commande {
       },
       data: {
         etat: true,
+        valideeLe: new Date(),
       },
     });
     console.log("update", data);
@@ -45,12 +47,30 @@ export default class Commande {
     const data = await commande.findMany({
       select: {
         id: true,
-        user: true,
-        article: true,
-        affaire: true,
-        fournisseur: true,
+        user: {
+          select: {
+            firstname: true,
+            lastname: true,
+          },
+        },
+        article: {
+          select: {
+            name: true,
+          },
+        },
+        affaire: {
+          select: {
+            name: true,
+          },
+        },
+        fournisseur: {
+          select: {
+            name: true,
+          },
+        },
         etat: true,
         quantite: true,
+        valideeLe: true,
       },
     });
     console.log("findAll", data);
@@ -64,12 +84,24 @@ export default class Commande {
       },
       select: {
         id: true,
-        user: true,
-        article: true,
-        affaire: true,
-        fournisseur: true,
+        article: {
+          select: {
+            name: true,
+          },
+        },
+        affaire: {
+          select: {
+            name: true,
+          },
+        },
+        fournisseur: {
+          select: {
+            name: true,
+          },
+        },
         etat: true,
         quantite: true,
+        valideeLe: true,
       },
     });
     console.log("findAllByUser", data);
