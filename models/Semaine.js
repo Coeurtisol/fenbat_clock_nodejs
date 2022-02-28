@@ -103,6 +103,16 @@ export default class Semaine {
     return data;
   };
 
+  static getCountEnAttente = async (numero,etatSemaineId) => {
+    const data = await semaine.count({
+      where: {
+        numero,
+        etatSemaineId,
+      },
+    });
+    return data;
+  };
+
   static update = async (id, updatedSemaine) => {
     const data = await semaine.update({
       where: {

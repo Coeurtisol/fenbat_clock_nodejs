@@ -6,7 +6,6 @@ import {
   updatePointages,
 } from "../controllers/pointagesController.js";
 import pdfGenerate from "../pdfGenerator.js";
-import { version } from "os";
 
 export async function getAllByWeek(req, res) {
   const annee = +req.params.year;
@@ -69,6 +68,19 @@ export async function update(req, res) {
       [PDFversion]: "1",
     });
     res.json(dataT);
+  } catch (error) {
+    console.log(error);
+    res.status(500).end();
+  }
+}
+
+export async function getNumberSemainesEnAttente(req, res) {
+  const numero = Number(req.params.numeroSemaine)
+  const permissionId = res.locals.user.role.permissionId;
+  const etatSemaineId = permissionId == 1 ? 3 : 2;
+  try {
+    const data = await Semaine.getCountEnAttente(numero,etatSemaineId);
+    res.json(data);
   } catch (error) {
     console.log(error);
     res.status(500).end();

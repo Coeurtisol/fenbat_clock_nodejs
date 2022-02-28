@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   getAll,
   getAllByUser,
+  getNumberCommandesEnAttente,
   create,
   valider,
   deleteOne,
@@ -10,6 +11,7 @@ import {
 const commandesRouter = Router();
 
 commandesRouter.get("/", getAll);
+commandesRouter.get("/enattente", getNumberCommandesEnAttente);
 commandesRouter.get("/user/:userId", getAllByUser);
 commandesRouter.post("/", create);
 commandesRouter.put("/:id", valider);

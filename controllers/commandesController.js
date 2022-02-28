@@ -55,3 +55,13 @@ export async function deleteOne(req, res) {
     res.status(500).end();
   }
 }
+
+export async function getNumberCommandesEnAttente(req, res) {
+  try {
+    const data = await Commande.getCountEnAttente();
+    res.json(data);
+  } catch (error) {
+    console.log(error);
+    res.status(500).end();
+  }
+}

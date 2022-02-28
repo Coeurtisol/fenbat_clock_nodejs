@@ -22,7 +22,7 @@ export default class Commande {
         quantite: this.quantite,
         etat: this.etat,
         affaireId: this.affaireId,
-        valideeLe: null
+        valideeLe: null,
       },
     });
     console.log("save", data);
@@ -105,6 +105,15 @@ export default class Commande {
       },
     });
     console.log("findAllByUser", data);
+    return data;
+  };
+
+  static getCountEnAttente = async () => {
+    const data = await commande.count({
+      where: {
+        etat: false,
+      },
+    });
     return data;
   };
 
