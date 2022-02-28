@@ -84,6 +84,7 @@ export default class Semaine {
         numero: true,
         user: {
           select: {
+            id: true,
             firstname: true,
             lastname: true,
           },

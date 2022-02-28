@@ -55,7 +55,8 @@ export async function create(req, res) {
 
 export async function update(req, res) {
   const id = Number(req.params.id);
-  const { userId, semaine } = req.body;
+  const { semaine } = req.body;
+  const userId = res.locals.user.id;
   let PDFversion = "PDF";
   if (userId == semaine.user.id) PDFversion += "employe";
   else PDFversion += "responsable";
@@ -75,11 +76,11 @@ export async function update(req, res) {
 }
 
 export async function getNumberSemainesEnAttente(req, res) {
-  const numero = Number(req.params.numeroSemaine)
+  const numero = Number(req.params.numeroSemaine);
   const permissionId = res.locals.user.role.permissionId;
   const etatSemaineId = permissionId == 1 ? 3 : 2;
   try {
-    const data = await Semaine.getCountEnAttente(numero,etatSemaineId);
+    const data = await Semaine.getCountEnAttente(numero, etatSemaineId);
     res.json(data);
   } catch (error) {
     console.log(error);
