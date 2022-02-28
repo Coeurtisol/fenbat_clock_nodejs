@@ -38,6 +38,7 @@ export default class Fournisseur {
             article: true,
           },
         },
+        _count: true,
       },
     });
     console.log("findAll", data);
