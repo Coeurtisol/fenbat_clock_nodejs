@@ -7,7 +7,7 @@ export async function create(req, res) {
   user.entiteId = Number(user.entiteId) == 0 ? null : Number(user.entiteId);
   // console.log(user);
   try {
-    console.log(user);
+    // console.log(user);
     user.password = await bcrypt.hash(user.password, 10);
     user.accessCode = await bcrypt.hash(user.accessCode, 10);
     const newUser = new User(user);
@@ -15,7 +15,7 @@ export async function create(req, res) {
     // console.log(data);
     res.json(data);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).end();
   }
 }
@@ -39,7 +39,7 @@ export async function update(req, res) {
     // console.log(data);
     res.json(data);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).end();
   }
 }
@@ -51,7 +51,7 @@ export async function findOne(req, res) {
     // console.log(user);
     res.json(user);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).end();
   }
 }
@@ -61,7 +61,7 @@ export async function findAll(req, res) {
     const users = await User.findAll();
     res.json(users);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).end();
   }
 }
@@ -71,7 +71,7 @@ export async function getLoginUserList(req, res) {
     const users = await User.findAllActive();
     res.json(users);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).end();
   }
 }
@@ -82,7 +82,7 @@ export async function deleteOne(req, res) {
     const data = await User.delete(Number(id));
     res.json(data);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).end();
   }
 }
@@ -93,7 +93,7 @@ export async function findAllByDay(req, res) {
     const data = await User.findAllByDay(date);
     res.json(data);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).end();
   }
 }
@@ -112,7 +112,7 @@ export async function addAdmin(req, res) {
     const data = await newUser.save();
     res.json(data);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).end();
   }
 }

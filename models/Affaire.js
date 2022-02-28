@@ -22,7 +22,7 @@ export default class Affaire {
   }
 
   save = async () => {
-    console.log(this);
+    // console.log(this);
     const data = await affaire.create({
       data: {
         name: this.name,
@@ -34,7 +34,7 @@ export default class Affaire {
         entiteId: this.entiteId,
       },
     });
-    console.log("save", data);
+    // console.log("save", data);
     return data;
   };
 
@@ -45,7 +45,7 @@ export default class Affaire {
       },
       data: updatedAffaire,
     });
-    console.log("update", data);
+    // console.log("update", data);
     return data;
   };
 
@@ -64,7 +64,7 @@ export default class Affaire {
         commandes: true,
       },
     });
-    console.log("findAll", data);
+    // console.log("findAll", data);
     return data;
   };
 
@@ -74,7 +74,7 @@ export default class Affaire {
         id,
       },
     });
-    console.log("delete", data);
+    // console.log("delete", data);
     return data;
   };
 }

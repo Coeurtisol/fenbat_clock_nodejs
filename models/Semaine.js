@@ -35,7 +35,7 @@ export default class Semaine {
         commentaire: true,
       },
     });
-    console.log("save semaine", data);
+    // console.log("save semaine", data);
     return data;
   };
 
@@ -67,7 +67,7 @@ export default class Semaine {
         PDFresponsable: true,
       },
     });
-    console.log("found semaine", data);
+    // console.log("found semaine", data);
     return data;
   };
 
@@ -100,7 +100,7 @@ export default class Semaine {
         PDFresponsable: true,
       },
     });
-    console.log("found semaine", data);
+    // console.log("found semaine", data);
     return data;
   };
 

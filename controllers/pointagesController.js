@@ -2,7 +2,7 @@ import Pointage from "../models/Pointage.js";
 
 export async function create(req, res) {
   const pointages = req.body;
-  console.log(pointages);
+  // console.log(pointages);
   try {
     // const data = pointages.map(async (p)=>{
     //   const newPointage = new Pointage(p);
@@ -15,7 +15,7 @@ export async function create(req, res) {
     }
     res.json(data);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).end();
   }
 }
@@ -39,7 +39,7 @@ export function updatePointages(pointages) {
   try {
     Promise.all(pointages.map(async (p) => await Pointage.update(p.id, p)));
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 }
 

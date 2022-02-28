@@ -5,7 +5,7 @@ export async function getAll(req, res) {
     const commandes = await Commande.findAll();
     res.json(commandes);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).end();
   }
 }
@@ -16,7 +16,7 @@ export async function getAllByUser(req, res) {
     const commandes = await Commande.findAllByUser(userId);
     res.json(commandes);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).end();
   }
 }
@@ -28,7 +28,7 @@ export async function create(req, res) {
     const data = await newCommande.save();
     res.json(data);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).end();
   }
 }
@@ -40,7 +40,7 @@ export async function valider(req, res) {
     const data = await Commande.valider(id, commande);
     res.json(data);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).end();
   }
 }
@@ -51,7 +51,7 @@ export async function deleteOne(req, res) {
     const data = await Commande.delete(id);
     res.json(data);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).end();
   }
 }
@@ -61,7 +61,7 @@ export async function getNumberCommandesEnAttente(req, res) {
     const data = await Commande.getCountEnAttente();
     res.json(data);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).end();
   }
 }

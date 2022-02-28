@@ -7,7 +7,7 @@ export function isSecure(req, res) {
   const secureIP = process.env.SECURE_IP;
   const ip = req.socket.remoteAddress;
   let isSecure;
-  console.log("ip client =", ip, "| ip autorisée :", secureIP);
+  // console.log("ip client =", ip, "| ip autorisée :", secureIP);
   if (ip == secureIP) isSecure = true;
   else isSecure = false;
   return res.status(200).json({ isSecure });
@@ -16,7 +16,7 @@ export function isSecure(req, res) {
 // TODO : refactoriser les deux méthodes de login?
 export async function login(req, res) {
   const { id, accessCode } = req.body;
-  console.log(id, accessCode);
+  // console.log(id, accessCode);
 
   const user = await User.login(id);
   if (!user) {
@@ -53,7 +53,7 @@ export async function login(req, res) {
 
 export async function externalLogin(req, res) {
   const { email, password } = req.body;
-  console.log(email, password);
+  // console.log(email, password);
 
   const user = await User.externalLogin(email);
   if (!user) {
@@ -63,7 +63,7 @@ export async function externalLogin(req, res) {
   }
 
   if (!user.status) {
-    console.log(user.status);
+    // console.log(user.status);
     return res.status(200).json({ error: "Compte désactivé" });
   }
 

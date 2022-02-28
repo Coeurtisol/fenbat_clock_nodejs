@@ -45,7 +45,7 @@ export default class Pointage {
       },
       data: updatedPointage,
     });
-    console.log("update pointage", data);
+    // console.log("update pointage", data);
     return data;
   };
 

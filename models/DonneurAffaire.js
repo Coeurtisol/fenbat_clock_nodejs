@@ -13,7 +13,7 @@ export default class DonneurAffaire {
         name: this.name,
       },
     });
-    console.log("save", data);
+    // console.log("save", data);
     return data;
   };
 
@@ -24,7 +24,7 @@ export default class DonneurAffaire {
       },
       data: updatedDonneurAffaire,
     });
-    console.log("update", data);
+    // console.log("update", data);
     return data;
   };
 
@@ -36,7 +36,7 @@ export default class DonneurAffaire {
         affaires: true,
       },
     });
-    console.log("findAll", data);
+    // console.log("findAll", data);
     return data;
   };
 
@@ -46,7 +46,7 @@ export default class DonneurAffaire {
         id,
       },
     });
-    console.log("delete", data);
+    // console.log("delete", data);
     return data;
   };
 }

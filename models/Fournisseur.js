@@ -13,7 +13,7 @@ export default class Fournisseur {
         name: this.name,
       },
     });
-    console.log("save", data);
+    // console.log("save", data);
     return data;
   };
 
@@ -24,7 +24,7 @@ export default class Fournisseur {
       },
       data: updatedournisseur,
     });
-    console.log("update", data);
+    // console.log("update", data);
     return data;
   };
 
@@ -41,7 +41,7 @@ export default class Fournisseur {
         _count: true,
       },
     });
-    console.log("findAll", data);
+    // console.log("findAll", data);
     return data;
   };
 
@@ -56,8 +56,8 @@ export default class Fournisseur {
         fournisseurId: id,
       },
     });
-    console.log("deleted fournisseur", data);
-    console.log("deleted relations", deletedRelations);
+    // console.log("deleted fournisseur", data);
+    // console.log("deleted relations", deletedRelations);
     return data;
   };
 }

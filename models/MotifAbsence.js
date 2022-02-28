@@ -15,7 +15,7 @@ export default class MotifAbsence {
         bloquant: this.bloquant,
       },
     });
-    console.log("save", data);
+    // console.log("save", data);
     return data;
   };
 
@@ -26,7 +26,7 @@ export default class MotifAbsence {
       },
       data: updatedMotifAbsence,
     });
-    console.log("update", data);
+    // console.log("update", data);
     return data;
   };
 
@@ -39,7 +39,7 @@ export default class MotifAbsence {
         bloquant: true,
       },
     });
-    console.log("findAll", data);
+    // console.log("findAll", data);
     return data;
   };
 
@@ -49,7 +49,7 @@ export default class MotifAbsence {
         id,
       },
     });
-    console.log("delete", data);
+    // console.log("delete", data);
     return data;
   };
 }

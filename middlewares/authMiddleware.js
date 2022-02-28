@@ -18,7 +18,7 @@ export function hasValidToken(req, res, next) {
     const token = req.headers.authorization.split(" ")[1];
     const payload = Jwt.verify(token, process.env.KEY);
     res.locals = { ...res.locals, user: payload };
-    console.log(payload);
+    // console.log(payload);
   } catch (error) {
     return res.status(403).end();
   }

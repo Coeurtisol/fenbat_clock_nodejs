@@ -25,7 +25,7 @@ export default class Commande {
         valideeLe: null,
       },
     });
-    console.log("save", data);
+    // console.log("save", data);
     return data;
   };
 
@@ -39,7 +39,7 @@ export default class Commande {
         valideeLe: new Date(),
       },
     });
-    console.log("update", data);
+    // console.log("update", data);
     return data;
   };
 
@@ -73,7 +73,7 @@ export default class Commande {
         valideeLe: true,
       },
     });
-    console.log("findAll", data);
+    // console.log("findAll", data);
     return data;
   };
 
@@ -104,7 +104,7 @@ export default class Commande {
         valideeLe: true,
       },
     });
-    console.log("findAllByUser", data);
+    // console.log("findAllByUser", data);
     return data;
   };
 
@@ -123,7 +123,7 @@ export default class Commande {
         id,
       },
     });
-    console.log("delete", data);
+    // console.log("delete", data);
     return data;
   };
 }

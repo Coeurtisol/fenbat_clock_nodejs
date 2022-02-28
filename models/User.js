@@ -58,7 +58,7 @@ export default class User {
         status: true,
       },
     });
-    console.log("login", userFound);
+    // console.log("login", userFound);
     return userFound;
   };
 

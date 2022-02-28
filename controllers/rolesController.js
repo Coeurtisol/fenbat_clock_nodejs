@@ -5,7 +5,7 @@ export async function getAll(req, res) {
     const roles = await Role.getAll();
     res.json(roles);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).end();
   }
 }
@@ -17,7 +17,7 @@ export async function create(req, res) {
     const data = await newRole.save();
     res.json(data);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).end();
   }
 }
@@ -30,7 +30,7 @@ export async function update(req, res) {
     const data = await Role.update(id, updatedRole);
     res.json(data);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).end();
   }
 }
@@ -41,7 +41,7 @@ export async function deleteOne(req, res) {
     const data = await Role.delete(id);
     res.json(data);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).end();
   }
 }

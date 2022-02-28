@@ -23,9 +23,9 @@ export default class Article {
       const data2 = await articleFournisseur.createMany({
         data: assignments,
       });
-      console.log("save2", data2);
+      // console.log("save2", data2);
     }
-    console.log("save1", data);
+    // console.log("save1", data);
     return data;
   };
 
@@ -44,7 +44,7 @@ export default class Article {
         articleId: id,
       },
     });
-    console.log("deleted relations", deletedRelations);
+    // console.log("deleted relations", deletedRelations);
     if (this.fournisseurs.length) {
       const assignments = this.fournisseurs.map((f) => {
         return { fournisseurId: f, articleId: id };
@@ -53,9 +53,9 @@ export default class Article {
         skipDuplicates: true,
         data: assignments,
       });
-      console.log("save2", data2);
+      // console.log("save2", data2);
     }
-    console.log("update", data);
+    // console.log("update", data);
     return data;
   };
 
@@ -72,7 +72,7 @@ export default class Article {
         },
       },
     });
-    console.log("findAll", data);
+    // console.log("findAll", data);
     return data;
   };
 
@@ -87,8 +87,8 @@ export default class Article {
         articleId: id,
       },
     });
-    console.log("deleted article", data);
-    console.log("deleted relations", deletedRelations);
+    // console.log("deleted article", data);
+    // console.log("deleted relations", deletedRelations);
     return data;
   };
 }
