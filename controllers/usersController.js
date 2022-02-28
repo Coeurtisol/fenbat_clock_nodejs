@@ -23,6 +23,7 @@ export async function create(req, res) {
 export async function update(req, res) {
   const id = Number(req.params.id);
   const user = req.body;
+  user.status = Number(user.status) ? true : false;
   if (user.roleId) {
     user.roleId = Number(user.roleId);
   }

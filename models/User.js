@@ -12,6 +12,7 @@ export default class User {
     password,
     entiteId,
     roleId,
+    status,
   }) {
     this.firstname = firstname;
     this.lastname = lastname;
@@ -21,6 +22,7 @@ export default class User {
     this.password = password;
     this.entiteId = entiteId;
     this.roleId = roleId;
+    this.status = Number(status) ? true : false;
   }
 
   save = async () => {
@@ -34,6 +36,7 @@ export default class User {
         password: this.password,
         entiteId: this.entiteId,
         roleId: this.roleId,
+        status: this.status,
       },
     });
     // console.log("save", data);
@@ -109,6 +112,7 @@ export default class User {
         role: true,
         pointages: true,
         commandes: true,
+        status: true,
       },
     });
     // console.log("findAll", data);
@@ -117,11 +121,15 @@ export default class User {
 
   static findAllActive = async () => {
     const data = await user.findMany({
+      where: {
+        status: true,
+      },
       select: {
         id: true,
         firstname: true,
         lastname: true,
         role: true,
+        status: true,
       },
     });
     return data;
