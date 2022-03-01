@@ -128,8 +128,11 @@ export default class User {
         id: true,
         firstname: true,
         lastname: true,
-        role: true,
-        status: true,
+        role: {
+          select: {
+            name: true,
+          },
+        },
       },
     });
     return data;
