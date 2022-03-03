@@ -1,6 +1,6 @@
 import prisma from "./Prisma.js";
 
-const { pointage } = prisma;
+const { pointage, user } = prisma;
 
 export default class Pointage {
   constructor(date, userId, moment) {
@@ -38,10 +38,10 @@ export default class Pointage {
   //   return data;
   // };
 
-  static update = async ( id, updatedPointage ) => {
+  static update = async (id, updatedPointage) => {
     const data = await pointage.update({
       where: {
-        id
+        id,
       },
       data: updatedPointage,
     });
@@ -67,4 +67,47 @@ export default class Pointage {
     }
     return weekDays;
   }
+
+  static findUsersPointagesSinceDate = async (date) => {
+    const start = new Date(date);
+    start.setDate(start.getDate() - 1);
+    const today = new Date();
+    const data = await user.findMany({
+      where: {
+        status: true,
+        // id: 6,
+      },
+      orderBy: {
+        firstname: "asc",
+      },
+      select: {
+        id: true,
+        firstname: true,
+        lastname: true,
+        pointages: {
+          where: {
+            date: {
+              gte: start,
+              lte: today,
+            },
+          },
+          orderBy: {
+            date: "asc",
+          },
+          select: {
+            date: true,
+            motifAbsenceId: true,
+            valeur: true,
+            semaine: {
+              select: {
+                annee: true,
+                numero: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    return data;
+  };
 }

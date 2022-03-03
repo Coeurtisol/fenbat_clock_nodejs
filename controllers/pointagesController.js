@@ -54,3 +54,14 @@ export async function update(req, res) {
   //   res.status(500).end();
   // }
 }
+
+export async function findUsersPointagesSinceDate(req, res) {
+  const { date } = req.body;
+  try {
+    const data = await Pointage.findUsersPointagesSinceDate(date);
+    res.json(data);
+  } catch (error) {
+    console.log(error);
+    res.status(500).end();
+  }
+}
