@@ -3,39 +3,38 @@ import bcrypt from "bcrypt";
 import jwtPKG from "jsonwebtoken";
 const Jwt = jwtPKG;
 
-export function isSecure(req, res) {
+function compareIp(req) {
   const secureIP = process.env.SECURE_IP;
   const ip = req.socket.remoteAddress;
-  let isSecure;
-  // console.log("ip client =", ip, "| ip autorisée :", secureIP);
-  if (ip == secureIP) isSecure = true;
-  else isSecure = false;
+  return ip == secureIP;
+}
+
+export function isSecure(req, res) {
+  const isSecure = compareIp(req);
   return res.status(200).json({ isSecure });
 }
 
 // TODO : refactoriser les deux méthodes de login?
 export async function login(req, res) {
+  const isSecure = compareIp(req);
+  if (Number(process.env.VERIFY_IP) && !isSecure) {
+    return res.status(200).json({ error: "Connexion non autorisée" });
+  }
+
   const { id, accessCode } = req.body;
-  // console.log(id, accessCode);
 
   const user = await User.login(id);
   if (!user) {
-    return res
-    .status(200)
-    .json({ error: "Utilisateur introuvable" });
+    return res.status(200).json({ error: "Utilisateur introuvable" });
   }
 
   if (!user.status) {
-    return res
-    .status(200)
-    .json({ error: "Compte désactivé" });
+    return res.status(200).json({ error: "Compte désactivé" });
   }
 
   const correctAccessCode = await bcrypt.compare(accessCode, user.accessCode);
   if (!correctAccessCode) {
-    return res
-    .status(200)
-    .json({ error: "Code d'access erroné" });
+    return res.status(200).json({ error: "Code d'access erroné" });
   }
 
   const payload = {
@@ -53,7 +52,6 @@ export async function login(req, res) {
 
 export async function externalLogin(req, res) {
   const { email, password } = req.body;
-  // console.log(email, password);
 
   const user = await User.externalLogin(email);
   if (!user) {
@@ -63,7 +61,6 @@ export async function externalLogin(req, res) {
   }
 
   if (!user.status) {
-    // console.log(user.status);
     return res.status(200).json({ error: "Compte désactivé" });
   }
 
