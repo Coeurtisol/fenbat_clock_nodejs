@@ -70,6 +70,7 @@ export default class Article {
             fournisseur: true,
           },
         },
+        _count: true,
       },
     });
     // console.log("findAll", data);
