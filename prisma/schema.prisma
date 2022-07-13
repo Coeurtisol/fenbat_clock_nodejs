@@ -59,6 +59,8 @@ model Affaire {
   name             String
   adresse          String         @default("")
   coordonnees      String         @default("")
+  zone             Zone?          @relation(fields: [zoneId], references: [id])
+  zoneId           Int?
   secteurAffaire   SecteurAffaire @relation(fields: [secteurAffaireId], references: [id])
   secteurAffaireId Int
   typeAffaire      TypeAffaire    @relation(fields: [typeAffaireId], references: [id])
@@ -74,6 +76,14 @@ model Affaire {
   commandes        Commande[]
 
   @@map("affaire")
+}
+
+model Zone {
+  id       Int       @id
+  label    String
+  affaires Affaire[]
+
+  @@map("zone")
 }
 
 model Permission {
