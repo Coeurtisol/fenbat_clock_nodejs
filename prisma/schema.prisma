@@ -13,6 +13,7 @@ datasource db {
 model Entite {
   id        Int        @id @default(autoincrement())
   name      String
+  adresse   String     @default("")
   Users     User[]
   affaires  Affaire[]
   pointages Pointage[]
@@ -55,6 +56,7 @@ model DonneurAffaire {
 model Affaire {
   id               Int            @id @default(autoincrement())
   name             String
+  adresse          String         @default("")
   secteurAffaire   SecteurAffaire @relation(fields: [secteurAffaireId], references: [id])
   secteurAffaireId Int
   typeAffaire      TypeAffaire    @relation(fields: [typeAffaireId], references: [id])
@@ -170,11 +172,12 @@ model Commande {
   articleId     Int
   fournisseur   Fournisseur @relation(fields: [fournisseurId], references: [id])
   fournisseurId Int
-  quantite      Int
-  etat          Boolean
   affaire       Affaire?    @relation(fields: [affaireId], references: [id])
   affaireId     Int?
+  quantite      Int
+  etat          String      @default("En attente")
   valideeLe     DateTime?
+  valideePar    String?
 
   @@map("commande")
 }

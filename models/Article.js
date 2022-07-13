@@ -16,16 +16,15 @@ export default class Article {
         categorieId: this.categorieId,
       },
     });
+    // CREATION DES RELATIONS
     if (this.fournisseurs.length) {
       const assignments = this.fournisseurs.map((f) => {
         return { fournisseurId: f, articleId: data.id };
       });
-      const data2 = await articleFournisseur.createMany({
+      await articleFournisseur.createMany({
         data: assignments,
       });
-      // console.log("save2", data2);
     }
-    // console.log("save1", data);
     return data;
   };
 
@@ -39,23 +38,22 @@ export default class Article {
         categorieId: this.categorieId,
       },
     });
-    const deletedRelations = await articleFournisseur.deleteMany({
+    // SUPPRESSION DES RELATIONS EXISTANTES
+    await articleFournisseur.deleteMany({
       where: {
         articleId: id,
       },
     });
-    // console.log("deleted relations", deletedRelations);
+    // RECREATION DES RELATIONS
     if (this.fournisseurs.length) {
       const assignments = this.fournisseurs.map((f) => {
         return { fournisseurId: f, articleId: id };
       });
-      const data2 = await articleFournisseur.createMany({
+      await articleFournisseur.createMany({
         skipDuplicates: true,
         data: assignments,
       });
-      // console.log("save2", data2);
     }
-    // console.log("update", data);
     return data;
   };
 
@@ -83,13 +81,13 @@ export default class Article {
         id,
       },
     });
-    const deletedRelations = await articleFournisseur.deleteMany({
-      where: {
-        articleId: id,
-      },
-    });
-    // console.log("deleted article", data);
-    // console.log("deleted relations", deletedRelations);
+    // delete on cascade (voir schema.prisma ArticleFournisseur)
+    // SUPPRESSION DES RELATIONS
+    // await articleFournisseur.deleteMany({
+    //   where: {
+    //     articleId: id,
+    //   },
+    // });
     return data;
   };
 }

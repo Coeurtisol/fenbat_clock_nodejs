@@ -4,7 +4,7 @@ import {
   getAllByUser,
   getNumberCommandesEnAttente,
   create,
-  valider,
+  changeEtat,
   deleteOne,
 } from "../controllers/commandesController.js";
 
@@ -14,7 +14,7 @@ commandesRouter.get("/", getAll);
 commandesRouter.get("/enattente", getNumberCommandesEnAttente);
 commandesRouter.get("/user/:userId", getAllByUser);
 commandesRouter.post("/", create);
-commandesRouter.put("/:id", valider);
+commandesRouter.put("/:id", changeEtat);
 commandesRouter.delete("/:id", deleteOne);
 
 export default commandesRouter;

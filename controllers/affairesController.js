@@ -5,7 +5,7 @@ export async function getAll(req, res) {
     const affaires = await Affaire.findAll();
     res.json(affaires);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }
@@ -34,7 +34,7 @@ export async function update(req, res) {
     const data = await Affaire.update(id, updatedAffaire);
     res.json(data);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }

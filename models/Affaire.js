@@ -11,6 +11,7 @@ export default class Affaire {
     donneurAffaireId,
     etat,
     entiteId,
+    adresse,
   }) {
     this.name = name;
     this.secteurAffaireId = Number(secteurAffaireId);
@@ -19,6 +20,7 @@ export default class Affaire {
     this.donneurAffaireId = Number(donneurAffaireId);
     this.etat = etat;
     this.entiteId = Number(entiteId);
+    this.adresse = adresse;
   }
 
   save = async () => {
@@ -32,6 +34,7 @@ export default class Affaire {
         donneurAffaireId: this.donneurAffaireId,
         etat: this.etat,
         entiteId: this.entiteId,
+        adresse: this.adresse,
       },
     });
     // console.log("save", data);
@@ -62,6 +65,7 @@ export default class Affaire {
         secteurAffaire: true,
         pointages: true,
         commandes: true,
+        adresse: true,
       },
     });
     // console.log("findAll", data);

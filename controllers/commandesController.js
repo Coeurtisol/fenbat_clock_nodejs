@@ -28,19 +28,21 @@ export async function create(req, res) {
     const data = await newCommande.save();
     res.json(data);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }
 
-export async function valider(req, res) {
+export async function changeEtat(req, res) {
   const id = Number(req.params.id);
-  const commande = req.body;
+  const { etat } = req.body;
+  const { firstname, lastname } = res.locals.user;
+  const valideur = firstname + " " + lastname;
   try {
-    const data = await Commande.valider(id, commande);
+    const data = await Commande.changerEtat(id, etat, valideur);
     res.json(data);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }

@@ -23,7 +23,10 @@ export async function create(req, res) {
 export async function update(req, res) {
   const id = Number(req.params.id);
   const user = req.body;
-  user.status = Number(user.status) ? true : false;
+  console.log(user);
+  if ("status" in user) {
+    user.status = Number(user.status) ? true : false;
+  }
   if (user.roleId) {
     user.roleId = Number(user.roleId);
   }
@@ -71,7 +74,7 @@ export async function getLoginUserList(req, res) {
     const users = await User.findAllActive();
     res.json(users);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }

@@ -32,8 +32,7 @@ export async function login(req, res) {
     return res.status(200).json({ error: "Compte désactivé" });
   }
 
-  const correctAccessCode = await bcrypt.compare(accessCode, user.accessCode);
-  if (!correctAccessCode) {
+  if (!(await bcrypt.compare(accessCode, user.accessCode))) {
     return res.status(200).json({ error: "Code d'access erroné" });
   }
 
@@ -64,8 +63,7 @@ export async function externalLogin(req, res) {
     return res.status(200).json({ error: "Compte désactivé" });
   }
 
-  const correctPassword = await bcrypt.compare(password, user.password);
-  if (!correctPassword) {
+  if (!(await bcrypt.compare(password, user.password))) {
     return res
       .status(200)
       .json({ error: "Adresse email ou mot de passe erroné" });

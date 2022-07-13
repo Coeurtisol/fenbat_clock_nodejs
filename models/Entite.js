@@ -3,14 +3,16 @@ import prisma from "./Prisma.js";
 const { entite } = prisma;
 
 export default class Entite {
-  constructor({ name }) {
+  constructor({ name, adresse }) {
     this.name = name;
+    this.adresse = adresse;
   }
 
   save = async () => {
     const data = await entite.create({
       data: {
         name: this.name,
+        adresse: this.adresse,
       },
     });
     // console.log("save", data);
@@ -33,6 +35,7 @@ export default class Entite {
       select: {
         id: true,
         name: true,
+        adresse: true,
         affaires: true,
         Users: true,
         pointages: true,

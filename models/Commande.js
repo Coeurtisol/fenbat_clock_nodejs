@@ -7,7 +7,7 @@ export default class Commande {
     this.userId = userId;
     this.articleId = articleId;
     this.fournisseurId = Number(fournisseurId);
-    this.quantite = quantite;
+    this.quantite = Number(quantite);
     this.etat = etat;
     this.affaireId = Number(affaireId) || null;
   }
@@ -29,14 +29,15 @@ export default class Commande {
     return data;
   };
 
-  static valider = async (id) => {
+  static changerEtat = async (id, etat, valideur) => {
     const data = await commande.update({
       where: {
         id,
       },
       data: {
-        etat: true,
+        etat: etat,
         valideeLe: new Date(),
+        valideePar: valideur,
       },
     });
     // console.log("update", data);
@@ -71,6 +72,7 @@ export default class Commande {
         etat: true,
         quantite: true,
         valideeLe: true,
+        valideePar: true,
       },
     });
     // console.log("findAll", data);
@@ -102,6 +104,7 @@ export default class Commande {
         etat: true,
         quantite: true,
         valideeLe: true,
+        valideePar: true,
       },
     });
     // console.log("findAllByUser", data);
@@ -111,7 +114,7 @@ export default class Commande {
   static getCountEnAttente = async () => {
     const data = await commande.count({
       where: {
-        etat: false,
+        etat: "En attente",
       },
     });
     return data;

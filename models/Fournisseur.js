@@ -51,12 +51,13 @@ export default class Fournisseur {
         id,
       },
     });
-    const deletedRelations = await articleFournisseur.deleteMany({
-      where: {
-        fournisseurId: id,
-      },
-    });
-    // console.log("deleted fournisseur", data);
+    // delete on cascade (voir schema.prisma ArticleFournisseur)
+    // SUPPRESSION DES RELATIONS EXISTANTES
+    // await articleFournisseur.deleteMany({
+    //   where: {
+    //     fournisseurId: id,
+    //   },
+    // });
     // console.log("deleted relations", deletedRelations);
     return data;
   };
