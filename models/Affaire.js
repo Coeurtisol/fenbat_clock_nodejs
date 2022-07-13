@@ -12,6 +12,7 @@ export default class Affaire {
     etat,
     entiteId,
     adresse,
+    coordonnees,
   }) {
     this.name = name;
     this.secteurAffaireId = Number(secteurAffaireId);
@@ -21,6 +22,7 @@ export default class Affaire {
     this.etat = etat;
     this.entiteId = Number(entiteId);
     this.adresse = adresse;
+    this.coordonnees = coordonnees;
   }
 
   save = async () => {
@@ -35,6 +37,7 @@ export default class Affaire {
         etat: this.etat,
         entiteId: this.entiteId,
         adresse: this.adresse,
+        coordonnees: this.coordonnees,
       },
     });
     // console.log("save", data);
@@ -66,6 +69,7 @@ export default class Affaire {
         pointages: true,
         commandes: true,
         adresse: true,
+        coordonnees: true,
       },
     });
     // console.log("findAll", data);

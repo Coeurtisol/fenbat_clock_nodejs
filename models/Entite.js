@@ -3,9 +3,10 @@ import prisma from "./Prisma.js";
 const { entite } = prisma;
 
 export default class Entite {
-  constructor({ name, adresse }) {
+  constructor({ name, adresse, coordonnees }) {
     this.name = name;
     this.adresse = adresse;
+    this.coordonnees = coordonnees;
   }
 
   save = async () => {
@@ -13,6 +14,7 @@ export default class Entite {
       data: {
         name: this.name,
         adresse: this.adresse,
+        coordonnees: this.coordonnees,
       },
     });
     // console.log("save", data);
@@ -36,6 +38,7 @@ export default class Entite {
         id: true,
         name: true,
         adresse: true,
+        coordonnees: true,
         affaires: true,
         Users: true,
         pointages: true,

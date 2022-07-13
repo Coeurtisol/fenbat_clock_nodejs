@@ -11,12 +11,13 @@ datasource db {
 }
 
 model Entite {
-  id        Int        @id @default(autoincrement())
-  name      String
-  adresse   String     @default("")
-  Users     User[]
-  affaires  Affaire[]
-  pointages Pointage[]
+  id          Int        @id @default(autoincrement())
+  name        String
+  adresse     String     @default("")
+  coordonnees String     @default("")
+  Users       User[]
+  affaires    Affaire[]
+  pointages   Pointage[]
 
   @@map("entite")
 }
@@ -57,6 +58,7 @@ model Affaire {
   id               Int            @id @default(autoincrement())
   name             String
   adresse          String         @default("")
+  coordonnees      String         @default("")
   secteurAffaire   SecteurAffaire @relation(fields: [secteurAffaireId], references: [id])
   secteurAffaireId Int
   typeAffaire      TypeAffaire    @relation(fields: [typeAffaireId], references: [id])
