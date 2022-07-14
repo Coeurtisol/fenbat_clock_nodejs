@@ -12,12 +12,18 @@ export async function getAll(req, res) {
 
 export async function create(req, res) {
   const affaire = req.body;
+  const zoneId = await Affaire.calculZone(
+    Number(affaire.entiteId),
+    affaire.coordonnees
+  );
+  affaire.zoneId = zoneId;
+  // console.log("affaire", affaire);
   try {
     const newAffaire = new Affaire(affaire);
     const data = await newAffaire.save();
     res.json(data);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }
@@ -30,6 +36,12 @@ export async function update(req, res) {
   updatedAffaire.typeAffaireId = Number(updatedAffaire.typeAffaireId);
   updatedAffaire.clientAffaireId = Number(updatedAffaire.clientAffaireId);
   updatedAffaire.donneurAffaireId = Number(updatedAffaire.donneurAffaireId);
+  const zoneId = await Affaire.calculZone(
+    Number(updatedAffaire.entiteId),
+    updatedAffaire.coordonnees
+  );
+  updatedAffaire.zoneId = zoneId;
+  // console.log("updatedAffaire", updatedAffaire);
   try {
     const data = await Affaire.update(id, updatedAffaire);
     res.json(data);

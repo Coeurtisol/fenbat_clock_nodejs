@@ -1,3 +1,5 @@
+import { getDistanceByRoad } from "../apis/distanceAPI.js";
+import Entite from "./Entite.js";
 import prisma from "./Prisma.js";
 
 const { affaire } = prisma;
@@ -13,6 +15,7 @@ export default class Affaire {
     entiteId,
     adresse,
     coordonnees,
+    zoneId,
   }) {
     this.name = name;
     this.secteurAffaireId = Number(secteurAffaireId);
@@ -23,6 +26,7 @@ export default class Affaire {
     this.entiteId = Number(entiteId);
     this.adresse = adresse;
     this.coordonnees = coordonnees;
+    this.zoneId = zoneId;
   }
 
   save = async () => {
@@ -38,6 +42,7 @@ export default class Affaire {
         entiteId: this.entiteId,
         adresse: this.adresse,
         coordonnees: this.coordonnees,
+        zoneId: this.zoneId,
       },
     });
     // console.log("save", data);
@@ -70,6 +75,7 @@ export default class Affaire {
         commandes: true,
         adresse: true,
         coordonnees: true,
+        zone: true,
       },
     });
     // console.log("findAll", data);
@@ -84,5 +90,34 @@ export default class Affaire {
     });
     // console.log("delete", data);
     return data;
+  };
+
+  static calculZone = async (entiteId, affaireCoordonnees) => {
+    let distance;
+    try {
+      const entite = await Entite.findById(entiteId);
+      const startCoordinates = entite.coordonnees.split(",").reverse();
+      const endCoordinates = affaireCoordonnees.split(",").reverse();
+      distance = await getDistanceByRoad(startCoordinates, endCoordinates);
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+    if (distance <= 10) {
+      return 1;
+    }
+    if (distance <= 20) {
+      return 2;
+    }
+    if (distance <= 30) {
+      return 3;
+    }
+    if (distance <= 40) {
+      return 4;
+    }
+    if (distance <= 50) {
+      return 5;
+    }
+    return 6;
   };
 }

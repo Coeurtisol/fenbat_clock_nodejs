@@ -32,6 +32,12 @@ export default class Entite {
     return data;
   };
 
+  static findById = async (id) => {
+    const data = await entite.findUnique({ where: { id } });
+    // console.log("findById", data);
+    return data;
+  };
+
   static findAll = async () => {
     const data = await entite.findMany({
       select: {
