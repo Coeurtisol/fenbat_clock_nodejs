@@ -15,7 +15,7 @@ export async function getAllByWeek(req, res) {
     data = await Semaine.getAllByWeek(annee, numero);
     res.json(data);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }
@@ -35,7 +35,7 @@ export async function findOne(req, res) {
     }
     res.json(data);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }
@@ -48,7 +48,7 @@ export async function create(req, res) {
     // console.log(data);
     res.json(data);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }
@@ -70,7 +70,7 @@ export async function update(req, res) {
     });
     res.json(dataT);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }
@@ -83,7 +83,7 @@ export async function getNumberSemainesEnAttente(req, res) {
     const data = await Semaine.getCountEnAttente(numero, etatSemaineId);
     res.json(data);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }

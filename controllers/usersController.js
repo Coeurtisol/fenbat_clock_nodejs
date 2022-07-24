@@ -15,7 +15,7 @@ export async function create(req, res) {
     // console.log(data);
     res.json(data);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }
@@ -42,7 +42,7 @@ export async function update(req, res) {
     // console.log(data);
     res.json(data);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }
@@ -54,7 +54,7 @@ export async function findOne(req, res) {
     // console.log(user);
     res.json(user);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }
@@ -64,7 +64,7 @@ export async function findAll(req, res) {
     const users = await User.findAll();
     res.json(users);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }
@@ -85,7 +85,7 @@ export async function deleteOne(req, res) {
     const data = await User.delete(Number(id));
     res.json(data);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }
@@ -96,7 +96,7 @@ export async function findAllByDay(req, res) {
     const data = await User.findAllByDay(date);
     res.json(data);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }
@@ -115,7 +115,7 @@ export async function addAdmin(req, res) {
     const data = await newUser.save();
     res.json(data);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }

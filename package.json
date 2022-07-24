@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "setup-db": "node prisma/setupMinimalRequiredData.js",
     "watch": "nodemon server.js",
     "babel": "npx babel --presets @babel/preset-react .\\src\\pdfGenerator.jsx --out-dir .",
     "babel-watch": "npx babel --presets @babel/preset-react .\\src\\pdfGenerator.jsx --watch --out-dir ."

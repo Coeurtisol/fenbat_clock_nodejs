@@ -16,7 +16,7 @@ export default class User {
   }) {
     this.firstname = firstname;
     this.lastname = lastname;
-    this.email = email;
+    this.email = email || null;
     this.phoneNumber = phoneNumber;
     this.accessCode = accessCode;
     this.password = password;

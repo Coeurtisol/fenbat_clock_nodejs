@@ -5,7 +5,7 @@ export async function getAll(req, res) {
     const secteursAffaire = await SecteurAffaire.findAll();
     res.json(secteursAffaire);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }
@@ -17,7 +17,7 @@ export async function create(req, res) {
     const data = await newSecteurAffaire.save();
     res.json(data);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }
@@ -29,7 +29,7 @@ export async function update(req, res) {
     const data = await SecteurAffaire.update(id, updatedSecteurAffaire );
     res.json(data);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }
@@ -40,7 +40,7 @@ export async function deleteOne(req, res) {
     const data = await SecteurAffaire.delete(id);
     res.json(data);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).end();
   }
 }
