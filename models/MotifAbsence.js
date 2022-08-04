@@ -9,29 +9,25 @@ export default class MotifAbsence {
   }
 
   save = async () => {
-    const data = await motifAbsence.create({
+    await motifAbsence.create({
       data: {
         name: this.name,
         bloquant: this.bloquant,
       },
     });
-    // console.log("save", data);
-    return data;
   };
 
   static update = async (id, updatedMotifAbsence) => {
-    const data = await motifAbsence.update({
+    await motifAbsence.update({
       where: {
         id,
       },
       data: updatedMotifAbsence,
     });
-    // console.log("update", data);
-    return data;
   };
 
   static findAll = async () => {
-    const data = await motifAbsence.findMany({
+    const motifsAbsence = await motifAbsence.findMany({
       select: {
         id: true,
         name: true,
@@ -39,17 +35,15 @@ export default class MotifAbsence {
         bloquant: true,
       },
     });
-    // console.log("findAll", data);
-    return data;
+    // console.log("motifsAbsence_findAll", motifsAbsence);
+    return motifsAbsence;
   };
 
   static delete = async (id) => {
-    const data = await motifAbsence.delete({
+    await motifAbsence.delete({
       where: {
         id,
       },
     });
-    // console.log("delete", data);
-    return data;
   };
 }

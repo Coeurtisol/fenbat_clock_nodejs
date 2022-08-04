@@ -3,50 +3,47 @@ import prisma from "./Prisma.js";
 const { secteurAffaire } = prisma;
 
 export default class SecteurAffaire {
-  constructor({ name }) {
+  constructor({ id, name }) {
+    this.id = id;
     this.name = name;
   }
 
   save = async () => {
-    const data = await secteurAffaire.create({
+    await secteurAffaire.create({
       data: {
         name: this.name,
       },
     });
-    // console.log("save", data);
-    return data;
   };
 
-  static update = async (id, updatedSecteurAffaire) => {
-    const data = await secteurAffaire.update({
+  update = async () => {
+    await secteurAffaire.update({
       where: {
-        id,
+        id: this.id,
       },
-      data: updatedSecteurAffaire,
+      data: {
+        name: this.name,
+      },
     });
-    // console.log("update", data);
-    return data;
   };
 
   static findAll = async () => {
-    const data = await secteurAffaire.findMany({
-      select : {
-        id : true,
-        name : true,
-        affaires : true
-      }
+    const secteursAffaire = await secteurAffaire.findMany({
+      select: {
+        id: true,
+        name: true,
+        affaires: true,
+      },
     });
-    // console.log("findAll", data);
-    return data;
+    // console.log("secteursAffaire_findAll", secteursAffaire);
+    return secteursAffaire;
   };
 
   static delete = async (id) => {
-    const data = await secteurAffaire.delete({
+    await secteurAffaire.delete({
       where: {
         id,
       },
     });
-    // console.log("delete", data);
-    return data;
   };
 }

@@ -11,11 +11,11 @@ export async function getAll(req, res) {
 }
 
 export async function create(req, res) {
-  const secteurAffaire = req.body;
+  const data = req.body;
   try {
-    const newSecteurAffaire = new SecteurAffaire(secteurAffaire);
-    const data = await newSecteurAffaire.save();
-    res.json(data);
+    const secteurAffaire = new SecteurAffaire(data);
+    await secteurAffaire.save();
+    res.status(201).end();
   } catch (error) {
     console.log(error);
     res.status(500).end();
@@ -24,10 +24,11 @@ export async function create(req, res) {
 
 export async function update(req, res) {
   const id = Number(req.params.id);
-  const updatedSecteurAffaire = req.body;
+  const data = req.body;
   try {
-    const data = await SecteurAffaire.update(id, updatedSecteurAffaire );
-    res.json(data);
+    const secteurAffaire = new SecteurAffaire({id,...data});
+    await secteurAffaire.update();
+    res.status(204).end();
   } catch (error) {
     console.log(error);
     res.status(500).end();
@@ -37,8 +38,8 @@ export async function update(req, res) {
 export async function deleteOne(req, res) {
   const id = Number(req.params.id);
   try {
-    const data = await SecteurAffaire.delete(id);
-    res.json(data);
+    await SecteurAffaire.delete(id);
+    res.status(204).end();
   } catch (error) {
     console.log(error);
     res.status(500).end();

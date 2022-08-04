@@ -13,7 +13,7 @@ export default class Commande {
   }
 
   save = async () => {
-    const data = await commande.create({
+    await commande.create({
       data: {
         userId: this.userId,
         articleId: this.articleId,
@@ -25,12 +25,10 @@ export default class Commande {
         valideeLe: null,
       },
     });
-    // console.log("save", data);
-    return data;
   };
 
   static changerEtat = async (id, etat, valideur) => {
-    const data = await commande.update({
+    await commande.update({
       where: {
         id,
       },
@@ -40,8 +38,6 @@ export default class Commande {
         valideePar: valideur,
       },
     });
-    // console.log("update", data);
-    return data;
   };
 
   static findAll = async () => {
@@ -120,13 +116,11 @@ export default class Commande {
     return data;
   };
 
-  static delete = async (id) => {
-    const data = await commande.delete({
-      where: {
-        id,
-      },
-    });
-    // console.log("delete", data);
-    return data;
-  };
+  // static delete = async (id) => {
+  //   await commande.delete({
+  //     where: {
+  //       id,
+  //     },
+  //   });
+  // };
 }

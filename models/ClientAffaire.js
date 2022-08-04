@@ -3,41 +3,40 @@ import prisma from "./Prisma.js";
 const { clientAffaire } = prisma;
 
 export default class ClientAffaire {
-  constructor({ name }) {
+  constructor({ id, name }) {
+    this.id = id;
     this.name = name;
   }
 
   save = async () => {
-    const data = await clientAffaire.create({
+    await clientAffaire.create({
       data: {
         name: this.name,
       },
     });
-    // console.log("save", data);
-    return data;
   };
 
-  static update = async (id, updatedClientAffaire) => {
-    const data = await clientAffaire.update({
+  update = async () => {
+    await clientAffaire.update({
       where: {
-        id,
+        id: this.id,
       },
-      data: updatedClientAffaire,
+      data: {
+        name: this.name,
+      },
     });
-    // console.log("update", data);
-    return data;
   };
 
   static findAll = async () => {
-    const data = await clientAffaire.findMany({
+    const clientsAffaire = await clientAffaire.findMany({
       select: {
         id: true,
         name: true,
         affaires: true,
       },
     });
-    // console.log("findAll", data);
-    return data;
+    // console.log("clientsAffaire_findAll", clientsAffaire);
+    return clientsAffaire;
   };
 
   static delete = async (id) => {

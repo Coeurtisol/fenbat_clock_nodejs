@@ -11,11 +11,11 @@ export async function getAll(req, res) {
 }
 
 export async function create(req, res) {
-  const donneurAffaire = req.body;
+  const data = req.body;
   try {
-    const newDonneurAffaire = new DonneurAffaire(donneurAffaire);
-    const data = await newDonneurAffaire.save();
-    res.json(data);
+    const donneurAffaire = new DonneurAffaire(data);
+    await donneurAffaire.save();
+    res.status(201).end();
   } catch (error) {
     console.log(error);
     res.status(500).end();
@@ -24,10 +24,11 @@ export async function create(req, res) {
 
 export async function update(req, res) {
   const id = Number(req.params.id);
-  const updatedDonneurAffaire = req.body;
+  const data = req.body;
   try {
-    const data = await DonneurAffaire.update(id, updatedDonneurAffaire );
-    res.json(data);
+    const donneurAffaire = new DonneurAffaire({ id, ...data });
+    await donneurAffaire.update();
+    res.status(204).end();
   } catch (error) {
     console.log(error);
     res.status(500).end();
@@ -37,8 +38,8 @@ export async function update(req, res) {
 export async function deleteOne(req, res) {
   const id = Number(req.params.id);
   try {
-    const data = await DonneurAffaire.delete(id);
-    res.json(data);
+    await DonneurAffaire.delete(id);
+    res.status(204).end();
   } catch (error) {
     console.log(error);
     res.status(500).end();

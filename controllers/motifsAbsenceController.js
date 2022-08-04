@@ -11,11 +11,11 @@ export async function getAll(req, res) {
 }
 
 export async function create(req, res) {
-  const motifAbsence = req.body;
+  const data = req.body;
   try {
-    const newMotifAbsence = new MotifAbsence(motifAbsence);
-    const data = await newMotifAbsence.save();
-    res.json(data);
+    const motifAbsence = new MotifAbsence(data);
+    await motifAbsence.save();
+    res.status(201).end();
   } catch (error) {
     console.log(error);
     res.status(500).end();
@@ -29,8 +29,8 @@ export async function update(req, res) {
     ? true
     : false;
   try {
-    const data = await MotifAbsence.update(id, updatedMotifAbsence);
-    res.json(data);
+    await MotifAbsence.update(id, updatedMotifAbsence);
+    res.status(204).end();
   } catch (error) {
     console.log(error);
     res.status(500).end();
@@ -40,8 +40,8 @@ export async function update(req, res) {
 export async function deleteOne(req, res) {
   const id = Number(req.params.id);
   try {
-    const data = await MotifAbsence.delete(id);
-    res.json(data);
+    await MotifAbsence.delete(id);
+    res.status(204).end();
   } catch (error) {
     console.log(error);
     res.status(500).end();

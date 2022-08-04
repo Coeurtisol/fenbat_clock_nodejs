@@ -15,7 +15,7 @@ export async function create(req, res) {
   try {
     const categorie = new Categorie(data);
     await categorie.save();
-    res.status(204).end();
+    res.status(201).end();
   } catch (error) {
     console.log(error);
     res.status(500).end();

@@ -15,7 +15,7 @@ export async function create(req, res) {
   try {
     const fournisseur = new Fournisseur(data);
     await fournisseur.save();
-    res.status(204).end();
+    res.status(201).end();
   } catch (error) {
     console.log(error);
     res.status(500).end();
