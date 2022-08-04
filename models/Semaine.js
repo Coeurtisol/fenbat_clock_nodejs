@@ -1,3 +1,4 @@
+import Pointage from "./Pointage.js";
 import prisma from "./Prisma.js";
 
 const { semaine } = prisma;
@@ -8,6 +9,7 @@ export default class Semaine {
     this.numero = numero;
     this.userId = userId;
     this.etatSemaineId = 1;
+    this.pointages = Pointage.genererPointagesDUneSemaine(numero, userId);
   }
 
   save = async () => {
@@ -104,7 +106,7 @@ export default class Semaine {
     return data;
   };
 
-  static getCountEnAttente = async (numero,etatSemaineId) => {
+  static getCountEnAttente = async (numero, etatSemaineId) => {
     const data = await semaine.count({
       where: {
         numero,

@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   findOne,
   getAllByWeek,
-  create,
+  // create,
   update,
   getPDF,
   getNumberSemainesEnAttente,
@@ -14,7 +14,7 @@ semainesRouter.get("/enattente/:numeroSemaine", getNumberSemainesEnAttente);
 semainesRouter.get("/gestion/:year/:week", getAllByWeek);
 semainesRouter.get("/:year/:week/:userId", findOne);
 semainesRouter.get("/pdf/:prenomNom/:annee/:semaine/:version", getPDF);
-semainesRouter.post("/", create);
+// semainesRouter.post("/", create);
 semainesRouter.put("/:id", update);
 
 export default semainesRouter;

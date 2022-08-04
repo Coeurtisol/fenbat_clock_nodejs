@@ -1,10 +1,7 @@
 import path from "path";
 import fsPromise from "fs/promises";
 import Semaine from "../models/Semaine.js";
-import {
-  createPointages,
-  updatePointages,
-} from "../controllers/pointagesController.js";
+import { updatePointages } from "../controllers/pointagesController.js";
 import pdfGenerate from "../pdfGenerator.js";
 
 export async function getAllByWeek(req, res) {
@@ -25,33 +22,31 @@ export async function findOne(req, res) {
   const numero = +req.params.week;
   const userId = +req.params.userId;
   try {
-    let data;
-    data = await Semaine.findOne(annee, numero, userId);
-    if (!data) {
+    let foundSemaine;
+    foundSemaine = await Semaine.findOne(annee, numero, userId);
+    if (!foundSemaine) {
       const newSemaine = new Semaine(annee, numero, userId);
-      const pointages = createPointages(numero, userId);
-      newSemaine.pointages = pointages;
-      data = await newSemaine.save();
+      foundSemaine = await newSemaine.save();
     }
-    res.json(data);
+    res.json(foundSemaine);
   } catch (error) {
     console.log(error);
     res.status(500).end();
   }
 }
 
-export async function create(req, res) {
-  const semaine = req.body;
-  try {
-    const newSemaine = new Semaine(semaine);
-    const data = await newSemaine.save();
-    // console.log(data);
-    res.json(data);
-  } catch (error) {
-    console.log(error);
-    res.status(500).end();
-  }
-}
+// export async function create(req, res) {
+//   const semaine = req.body;
+//   try {
+//     const newSemaine = new Semaine(semaine);
+//     const data = await newSemaine.save();
+//     // console.log(data);
+//     res.json(data);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).end();
+//   }
+// }
 
 export async function update(req, res) {
   const id = Number(req.params.id);

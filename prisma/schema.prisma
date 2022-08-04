@@ -195,12 +195,12 @@ model Commande {
 }
 
 model Article {
-  id           Int                  @id @default(autoincrement())
+  id           Int           @id @default(autoincrement())
   name         String
-  categorie    Categorie?           @relation(fields: [categorieId], references: [id], onDelete: SetNull)
+  categorie    Categorie?    @relation(fields: [categorieId], references: [id], onDelete: SetNull)
   categorieId  Int?
   commandes    Commande[]
-  fournisseurs ArticleFournisseur[]
+  fournisseurs Fournisseur[] @relation("article_to_fournisseur")
 
   @@map("article")
 }
@@ -214,20 +214,20 @@ model Categorie {
 }
 
 model Fournisseur {
-  id        Int                  @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
   name      String
-  articles  ArticleFournisseur[]
+  articles  Article[]  @relation("article_to_fournisseur")
   commandes Commande[]
 
   @@map("fournisseur")
 }
 
-model ArticleFournisseur {
-  article       Article     @relation(fields: [articleId], references: [id], onDelete: Cascade)
-  articleId     Int
-  fournisseur   Fournisseur @relation(fields: [fournisseurId], references: [id], onDelete: Cascade)
-  fournisseurId Int
+// model ArticleFournisseur {
+//   article       Article     @relation(fields: [articleId], references: [id], onDelete: Cascade)
+//   articleId     Int
+//   fournisseur   Fournisseur @relation(fields: [fournisseurId], references: [id], onDelete: Cascade)
+//   fournisseurId Int
 
-  @@id([articleId, fournisseurId])
-  @@map("_articletofournisseur")
-}
+//   @@id([articleId, fournisseurId])
+//   @@map("_articletofournisseur")
+// }

@@ -38,6 +38,16 @@ export default class Pointage {
   //   return data;
   // };
 
+  static genererPointagesDUneSemaine(week, userId) {
+    const pointages = [];
+    const dates = Pointage.createWeekDays(week);
+    for (let i = 0; i < dates.length; i++) {
+      pointages.push(new Pointage(dates[i], userId, false));
+      pointages.push(new Pointage(dates[i], userId, true));
+    }
+    return pointages;
+  }
+
   static update = async (id, updatedPointage) => {
     const data = await pointage.update({
       where: {

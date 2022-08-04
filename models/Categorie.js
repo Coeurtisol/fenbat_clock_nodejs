@@ -3,29 +3,28 @@ import prisma from "./Prisma.js";
 const { categorie } = prisma;
 
 export default class Categorie {
-  constructor({ name }) {
+  constructor({ id, name }) {
+    this.id = id;
     this.name = name;
   }
 
   save = async () => {
-    const data = await categorie.create({
+    await categorie.create({
       data: {
         name: this.name,
       },
     });
-    // console.log("save", data);
-    return data;
   };
 
-  static update = async (id, updatedCategorie) => {
-    const data = await categorie.update({
+  update = async () => {
+    await categorie.update({
       where: {
-        id,
+        id : this.id,
       },
-      data: updatedCategorie,
+      data: {
+        name: this.name,
+      },
     });
-    // console.log("update", data);
-    return data;
   };
 
   static findAll = async () => {
@@ -36,17 +35,15 @@ export default class Categorie {
         articles: true,
       },
     });
-    // console.log("findAll", data);
+    // console.log("categorie_findAll", data);
     return data;
   };
 
   static delete = async (id) => {
-    const data = await categorie.delete({
+    await categorie.delete({
       where: {
         id,
       },
     });
-    // console.log("delete", data);
-    return data;
   };
 }

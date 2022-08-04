@@ -3,29 +3,28 @@ import prisma from "./Prisma.js";
 const { fournisseur, articleFournisseur } = prisma;
 
 export default class Fournisseur {
-  constructor({ name }) {
+  constructor({ id, name }) {
+    this.id = id;
     this.name = name;
   }
 
   save = async () => {
-    const data = await fournisseur.create({
+    await fournisseur.create({
       data: {
         name: this.name,
       },
     });
-    // console.log("save", data);
-    return data;
   };
 
-  static update = async (id, updatedournisseur) => {
-    const data = await fournisseur.update({
+  update = async () => {
+    await fournisseur.update({
       where: {
-        id,
+        id: this.id,
       },
-      data: updatedournisseur,
+      data: {
+        name: this.name,
+      },
     });
-    // console.log("update", data);
-    return data;
   };
 
   static findAll = async () => {
@@ -33,32 +32,19 @@ export default class Fournisseur {
       select: {
         id: true,
         name: true,
-        articles: {
-          select: {
-            article: true,
-          },
-        },
+        articles: true,
         _count: true,
       },
     });
-    // console.log("findAll", data);
+    // console.log("fournisseur_findAll", data);
     return data;
   };
 
   static delete = async (id) => {
-    const data = await fournisseur.delete({
+    await fournisseur.delete({
       where: {
         id,
       },
     });
-    // delete on cascade (voir schema.prisma ArticleFournisseur)
-    // SUPPRESSION DES RELATIONS EXISTANTES
-    // await articleFournisseur.deleteMany({
-    //   where: {
-    //     fournisseurId: id,
-    //   },
-    // });
-    // console.log("deleted relations", deletedRelations);
-    return data;
   };
 }
