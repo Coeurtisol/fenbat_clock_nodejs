@@ -53,8 +53,17 @@ export default class User {
         accessCode: true,
         firstname: true,
         lastname: true,
-        role: true,
-        entite: true,
+        role: {
+          select: {
+            name: true,
+            permissionId: true,
+          },
+        },
+        entite: {
+          select: {
+            id: true,
+          },
+        },
         status: true,
       },
     });
@@ -77,7 +86,7 @@ export default class User {
         status: true,
       },
     });
-    console.log("login", userFound);
+    // console.log("externalLogin", userFound);
     return userFound;
   };
 

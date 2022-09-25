@@ -1,11 +1,11 @@
 import { getDistanceByRoad } from "../apis/distanceAPI.js";
 import Entite from "./Entite.js";
 import prisma from "./Prisma.js";
-
 const { affaire } = prisma;
 
 export default class Affaire {
   constructor({
+    id,
     name,
     secteurAffaireId,
     typeAffaireId,
@@ -17,6 +17,7 @@ export default class Affaire {
     coordonnees,
     zoneId,
   }) {
+    this.id = id;
     this.name = name;
     this.secteurAffaireId = Number(secteurAffaireId);
     this.typeAffaireId = Number(typeAffaireId);
@@ -30,8 +31,7 @@ export default class Affaire {
   }
 
   save = async () => {
-    // console.log(this);
-    const data = await affaire.create({
+    await affaire.create({
       data: {
         name: this.name,
         secteurAffaireId: this.secteurAffaireId,
@@ -45,19 +45,26 @@ export default class Affaire {
         zoneId: this.zoneId,
       },
     });
-    // console.log("save", data);
-    return data;
   };
 
-  static update = async (id, updatedAffaire) => {
-    const data = await affaire.update({
+  update = async () => {
+    await affaire.update({
       where: {
-        id,
+        id: this.id,
       },
-      data: updatedAffaire,
+      data: {
+        name: this.name,
+        secteurAffaireId: this.secteurAffaireId,
+        typeAffaireId: this.typeAffaireId,
+        clientAffaireId: this.clientAffaireId,
+        donneurAffaireId: this.donneurAffaireId,
+        etat: this.etat,
+        entiteId: this.entiteId,
+        adresse: this.adresse,
+        coordonnees: this.coordonnees,
+        zoneId: this.zoneId,
+      },
     });
-    // console.log("update", data);
-    return data;
   };
 
   static findAll = async () => {
@@ -78,7 +85,6 @@ export default class Affaire {
         zone: true,
       },
     });
-    // console.log("findAll", data);
     return data;
   };
 
@@ -92,32 +98,32 @@ export default class Affaire {
     return data;
   };
 
-  static calculZone = async (entiteId, affaireCoordonnees) => {
+  calculZone = async () => {
     let distance;
     try {
-      const entite = await Entite.findById(entiteId);
+      const entite = await Entite.findById(this.entiteId);
       const startCoordinates = entite.coordonnees.split(",").reverse();
-      const endCoordinates = affaireCoordonnees.split(",").reverse();
+      const endCoordinates = this.coordonnees.split(",").reverse();
       distance = await getDistanceByRoad(startCoordinates, endCoordinates);
     } catch (error) {
       console.log(error);
-      return null;
+      return (this.zoneId = null);
     }
     if (distance <= 10) {
-      return 1;
+      return (this.zoneId = 1);
     }
     if (distance <= 20) {
-      return 2;
+      return (this.zoneId = 2);
     }
     if (distance <= 30) {
-      return 3;
+      return (this.zoneId = 3);
     }
     if (distance <= 40) {
-      return 4;
+      return (this.zoneId = 4);
     }
     if (distance <= 50) {
-      return 5;
+      return (this.zoneId = 5);
     }
-    return 6;
+    return (this.zoneId = 6);
   };
 }

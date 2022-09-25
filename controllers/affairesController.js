@@ -11,17 +11,12 @@ export async function getAll(req, res) {
 }
 
 export async function create(req, res) {
-  const affaire = req.body;
-  const zoneId = await Affaire.calculZone(
-    Number(affaire.entiteId),
-    affaire.coordonnees
-  );
-  affaire.zoneId = zoneId;
-  // console.log("affaire", affaire);
+  const data = req.body;
   try {
-    const newAffaire = new Affaire(affaire);
-    const data = await newAffaire.save();
-    res.json(data);
+    const affaire = new Affaire(data);
+    await affaire.calculZone();
+    await affaire.save();
+    res.status(201).end();
   } catch (error) {
     console.log(error);
     res.status(500).end();
@@ -30,21 +25,12 @@ export async function create(req, res) {
 
 export async function update(req, res) {
   const id = Number(req.params.id);
-  const updatedAffaire = req.body;
-  updatedAffaire.entiteId = Number(updatedAffaire.entiteId);
-  updatedAffaire.secteurAffaireId = Number(updatedAffaire.secteurAffaireId);
-  updatedAffaire.typeAffaireId = Number(updatedAffaire.typeAffaireId);
-  updatedAffaire.clientAffaireId = Number(updatedAffaire.clientAffaireId);
-  updatedAffaire.donneurAffaireId = Number(updatedAffaire.donneurAffaireId);
-  const zoneId = await Affaire.calculZone(
-    Number(updatedAffaire.entiteId),
-    updatedAffaire.coordonnees
-  );
-  updatedAffaire.zoneId = zoneId;
-  // console.log("updatedAffaire", updatedAffaire);
+  const data = req.body;
   try {
-    const data = await Affaire.update(id, updatedAffaire);
-    res.json(data);
+    const affaire = new Affaire({ id, ...data });
+    await affaire.calculZone();
+    await affaire.update();
+    res.status(204).end();
   } catch (error) {
     console.log(error);
     res.status(500).end();

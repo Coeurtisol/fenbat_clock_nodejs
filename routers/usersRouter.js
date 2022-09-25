@@ -12,8 +12,7 @@ import {
 import { hasValidToken } from "../middlewares/authMiddleware.js";
 
 const usersRouter = Router();
-
-usersRouter.get("/addadmin", addAdmin);
+// usersRouter.get("/addadmin", addAdmin);
 usersRouter.get("/activeuserlist", getLoginUserList);
 usersRouter.get("/:id", hasValidToken, findOne);
 usersRouter.get("/", hasValidToken, findAll);
