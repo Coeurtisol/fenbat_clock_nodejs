@@ -2,7 +2,7 @@ import path from "path";
 import fsPromise from "fs/promises";
 import Semaine from "../models/Semaine.js";
 import { updatePointages } from "../controllers/pointagesController.js";
-import pdfGenerate from "../pdfGenerator.js";
+import pdfGenerate from "../tools/pdfGenerator.js";
 
 export async function getAllByWeek(req, res) {
   const annee = +req.params.year;
@@ -52,11 +52,11 @@ export async function update(req, res) {
   const id = Number(req.params.id);
   const { semaine } = req.body;
   const userId = res.locals.user.id;
-  let PDFversion = "PDF";
-  if (userId == semaine.user.id) PDFversion += "employe";
-  else PDFversion += "responsable";
+  const PDFversion = (userId == semaine.user.id) 
+    ? "PDFemploye" 
+    : "PDFresponsable";
   try {
-    updatePointages(semaine.pointages); //enregistre séparement les pointages, pb en remplçant l'array entier
+    updatePointages(semaine.pointages);
     const data = await Semaine.update(id, semaine);
     await pdfGenerate({ ...data, PDFversion });
     const dataT = await Semaine.update(id, {

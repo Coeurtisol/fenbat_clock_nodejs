@@ -6,8 +6,8 @@
   "scripts": {
     "setup-db": "node prisma/setupMinimalRequiredData.js",
     "watch": "nodemon server.js",
-    "babel": "npx babel --presets @babel/preset-react .\\src\\pdfGenerator.jsx --out-dir .",
-    "babel-watch": "npx babel --presets @babel/preset-react .\\src\\pdfGenerator.jsx --watch --out-dir ."
+    "babel-pdf": "npx babel --presets @babel/preset-react .\\src\\pdfGenerator.jsx --out-dir .\\tools",
+    "babel-watch-pdf": "npx babel --presets @babel/preset-react .\\src\\pdfGenerator.jsx --watch --out-dir .\\tools"
   },
   "keywords": [],
   "author": "",
