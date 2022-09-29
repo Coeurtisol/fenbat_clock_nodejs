@@ -147,6 +147,22 @@ export default class Semaine {
           orderBy: {
             id: "asc",
           },
+          // DONNEES POUR GENERATION DU PDF
+          select: {
+            valeur: true,
+            date: true,
+            affaire: {
+              select: {
+                name: true,
+                zone: true,
+              },
+            },
+            motifAbsence: {
+              select: {
+                name: true,
+              },
+            },
+          },
         },
         commentaire: true,
       },

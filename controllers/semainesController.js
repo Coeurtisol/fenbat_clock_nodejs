@@ -35,35 +35,21 @@ export async function findOne(req, res) {
   }
 }
 
-// export async function create(req, res) {
-//   const semaine = req.body;
-//   try {
-//     const newSemaine = new Semaine(semaine);
-//     const data = await newSemaine.save();
-//     // console.log(data);
-//     res.json(data);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).end();
-//   }
-// }
-
 export async function update(req, res) {
   const id = Number(req.params.id);
   const { semaine } = req.body;
-  const userId = res.locals.user.id;
-  const PDFversion = (userId == semaine.user.id) 
-    ? "PDFemploye" 
-    : "PDFresponsable";
+  const user = res.locals.user;
+  const PDFversion =
+    user.id == semaine.user.id ? "PDFemploye" : "PDFresponsable";
   try {
-    updatePointages(semaine.pointages);
+    await updatePointages(semaine.pointages);
     const data = await Semaine.update(id, semaine);
-    await pdfGenerate({ ...data, PDFversion });
-    const dataT = await Semaine.update(id, {
+    await pdfGenerate(data, PDFversion , user);
+    await Semaine.update(id, {
       ...semaine,
       [PDFversion]: "1",
     });
-    res.json(dataT);
+    res.status(204).end();
   } catch (error) {
     console.log(error);
     res.status(500).end();
@@ -83,19 +69,19 @@ export async function getNumberSemainesEnAttente(req, res) {
   }
 }
 
-export async function getPDF(req, res) {
-  const { prenomNom, annee, semaine, version } = req.params;
-  const fileName = `${prenomNom}-${annee}-${semaine}-${version}.pdf`;
+// export async function getPDF(req, res) {
+//   const { prenomNom, annee, semaine, version } = req.params;
+//   const fileName = `${prenomNom}-${annee}-${semaine}-${version}.pdf`;
 
-  try {
-    const stats = await fsPromise.stat("./documents/pdf/" + fileName);
-    if (!stats) {
-      res.status(404).end("Fichier introuvable");
-      return;
-    }
-    res.sendFile(path.resolve() + "/documents/pdf/" + fileName);
-  } catch (err) {
-    // console.log(err);
-    res.status(500).end();
-  }
-}
+//   try {
+//     const stats = await fsPromise.stat("./documents/pdf/" + fileName);
+//     if (!stats) {
+//       res.status(404).end("Fichier introuvable");
+//       return;
+//     }
+//     res.sendFile(path.resolve() + "/documents/pdf/" + fileName);
+//   } catch (err) {
+//     // console.log(err);
+//     res.status(500).end();
+//   }
+// }

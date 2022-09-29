@@ -20,14 +20,14 @@ export async function create(req, res) {
   }
 }
 
-export function updatePointages(pointages) {
+export async function updatePointages(pointages) {
   pointages.forEach((p) => {
     p.affaireId = p.affaireId > 0 ? +p.affaireId : null;
     p.motifAbsenceId = p.motifAbsenceId > 0 ? +p.motifAbsenceId : null;
     delete p.semaineId;
   });
   try {
-    Promise.all(pointages.map(async (p) => await Pointage.update(p.id, p)));
+    await Promise.all(pointages.map(async (p) => await Pointage.update(p.id, p)));
   } catch (error) {
     console.log(error);
   }
