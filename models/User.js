@@ -61,6 +61,7 @@ export default class User {
         lastname: true,
         role: {
           select: {
+            id: true,
             name: true,
             permissionId: true,
           },
@@ -90,6 +91,7 @@ export default class User {
         phoneNumber: true,
         entite: true,
         role: true,
+        status: true,
       },
     });
     // console.log("findById", userFound);

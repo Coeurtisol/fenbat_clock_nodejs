@@ -6,7 +6,7 @@ import {
   create,
   update,
   deleteOne,
-  addAdmin,
+  // addAdmin,
   // findAllByDay,
 } from "../controllers/usersController.js";
 import { hasValidToken } from "../middlewares/authMiddleware.js";
