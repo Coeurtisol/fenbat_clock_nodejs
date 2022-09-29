@@ -14,61 +14,7 @@ export function isSecure(req, res) {
   return res.status(200).json({ isSecure });
 }
 
-// TODO : refactoriser les deux méthodes de login?
-export async function login(req, res) {
-  const isSecure = compareIp(req);
-  if (Number(process.env.VERIFY_IP) && !isSecure) {
-    return res.status(200).json({ error: "Connexion non autorisée" });
-  }
-
-  const { id, accessCode } = req.body;
-
-  const user = await User.login(id);
-  if (!user) {
-    return res.status(200).json({ error: "Utilisateur introuvable" });
-  }
-
-  if (!user.status) {
-    return res.status(200).json({ error: "Compte désactivé" });
-  }
-
-  if (!(await bcrypt.compare(accessCode, user.accessCode))) {
-    return res.status(200).json({ error: "Code d'access erroné" });
-  }
-
-  const payload = {
-    id,
-    firstname: user.firstname,
-    lastname: user.lastname,
-    role: user.role,
-    entite: user.entite,
-  };
-  const secretKey = process.env.KEY;
-  const options = { expiresIn: 60 * 60 }; // 60 minutes
-  const token = Jwt.sign(payload, secretKey, options);
-  res.send(token);
-}
-
-export async function externalLogin(req, res) {
-  const { email, password } = req.body;
-
-  const user = await User.externalLogin(email);
-  if (!user) {
-    return res
-      .status(200)
-      .json({ error: "Adresse email ou mot de passe erroné" });
-  }
-
-  if (!user.status) {
-    return res.status(200).json({ error: "Compte désactivé" });
-  }
-
-  if (!(await bcrypt.compare(password, user.password))) {
-    return res
-      .status(200)
-      .json({ error: "Adresse email ou mot de passe erroné" });
-  }
-
+function generateToken(user) {
   const payload = {
     id: user.id,
     firstname: user.firstname,
@@ -79,5 +25,55 @@ export async function externalLogin(req, res) {
   const secretKey = process.env.KEY;
   const options = { expiresIn: 60 * 60 }; // 60 minutes
   const token = Jwt.sign(payload, secretKey, options);
+  return token;
+}
+
+// TODO : refactoriser les deux méthodes de login?
+export async function login(req, res) {
+  const isSecure = compareIp(req);
+  if (Number(process.env.VERIFY_IP) && !isSecure) {
+    return res.status(403).json({ error: "Connexion non autorisée" });
+  }
+
+  const { id, accessCode } = req.body;
+
+  const user = await User.findUniqueForLogin("id", id);
+  if (!user) {
+    return res.status(403).json({ error: "Utilisateur introuvable" });
+  }
+
+  if (!user.status) {
+    return res.status(403).json({ error: "Compte désactivé" });
+  }
+
+  if (!(await bcrypt.compare(accessCode, user.accessCode))) {
+    return res.status(403).json({ error: "Code d'access erroné" });
+  }
+
+  const token = generateToken(user);
+  res.send(token);
+}
+
+export async function externalLogin(req, res) {
+  const { email, password } = req.body;
+
+  const user = await User.findUniqueForLogin("email", email);
+  if (!user) {
+    return res
+      .status(403)
+      .json({ error: "Adresse email ou mot de passe erroné" });
+  }
+
+  if (!user.status) {
+    return res.status(403).json({ error: "Compte désactivé" });
+  }
+
+  if (!(await bcrypt.compare(password, user.password))) {
+    return res
+      .status(403)
+      .json({ error: "Adresse email ou mot de passe erroné" });
+  }
+
+  const token = generateToken(user);
   res.send(token);
 }

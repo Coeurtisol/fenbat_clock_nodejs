@@ -43,14 +43,20 @@ export default class User {
     return data;
   };
 
-  static login = async (id) => {
+  /**
+   * @param { "id" | "email" } identifier
+   * @param { number | string } value
+   * @returns
+   */
+  static findUniqueForLogin = async (identifier, value) => {
     const userFound = await user.findUnique({
       where: {
-        id,
+        [identifier]: value,
       },
       select: {
         id: true,
         accessCode: true,
+        password: true,
         firstname: true,
         lastname: true,
         role: {
@@ -67,26 +73,7 @@ export default class User {
         status: true,
       },
     });
-    // console.log("login", userFound);
-    return userFound;
-  };
-
-  static externalLogin = async (email) => {
-    const userFound = await user.findUnique({
-      where: {
-        email,
-      },
-      select: {
-        id: true,
-        password: true,
-        firstname: true,
-        lastname: true,
-        role: true,
-        entite: true,
-        status: true,
-      },
-    });
-    // console.log("externalLogin", userFound);
+    // console.log("findUnique", userFound);
     return userFound;
   };
 
