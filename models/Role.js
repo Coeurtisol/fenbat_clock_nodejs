@@ -30,6 +30,16 @@ export default class Role {
     return data;
   };
 
+  static findById = async (id) => {
+    const foundRole = await role.findUnique({
+      where: {
+        id,
+      },
+    });
+    // console.log("foundRole", foundRole);
+    return foundRole;
+  };
+
   static getAll = async () => {
     const data = await role.findMany({
       select: {
