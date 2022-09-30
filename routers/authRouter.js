@@ -1,10 +1,16 @@
 import { Router } from "express";
-import { isSecure, login, externalLogin } from "../controllers/authController.js";
+import {
+  isSecure,
+  login,
+  externalLogin,
+  getActiveUsersList,
+} from "../controllers/authController.js";
 
-const usersRouter = Router();
+const authRouter = Router();
 
-usersRouter.get("/issecure", isSecure);
-usersRouter.post("/login", login);
-usersRouter.post("/externalLogin", externalLogin);
+authRouter.get("/usersList", getActiveUsersList);
+authRouter.get("/issecure", isSecure);
+authRouter.post("/login", login);
+authRouter.post("/externalLogin", externalLogin);
 
-export default usersRouter;
+export default authRouter;

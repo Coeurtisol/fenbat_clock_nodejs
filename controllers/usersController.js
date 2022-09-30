@@ -81,16 +81,6 @@ export async function findAll(req, res) {
   }
 }
 
-export async function getLoginUserList(req, res) {
-  try {
-    const users = await User.findAllActive();
-    res.json(users);
-  } catch (error) {
-    console.log(error);
-    res.status(500).end();
-  }
-}
-
 export async function deleteOne(req, res) {
   const reqUser = res.locals.user;
   const id = +req.params.id;

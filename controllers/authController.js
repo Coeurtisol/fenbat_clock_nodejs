@@ -14,6 +14,16 @@ export function isSecure(req, res) {
   return res.status(200).json({ isSecure });
 }
 
+export async function getActiveUsersList(req, res) {
+  try {
+    const users = await User.findAllActive();
+    res.json(users);
+  } catch (error) {
+    console.log(error);
+    res.status(500).end();
+  }
+}
+
 function generateToken(user) {
   const payload = {
     id: user.id,
