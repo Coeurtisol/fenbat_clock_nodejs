@@ -1,9 +1,11 @@
 import prisma from "./Prisma.js";
+import bcrypt from "bcrypt";
 
 const { user } = prisma;
 
 export default class User {
   constructor({
+    id,
     firstname,
     lastname,
     email,
@@ -14,19 +16,30 @@ export default class User {
     roleId,
     status,
   }) {
+    this.id = id;
     this.firstname = firstname;
     this.lastname = lastname;
     this.email = email || null;
     this.phoneNumber = phoneNumber;
     this.accessCode = accessCode;
     this.password = password;
-    this.entiteId = entiteId;
-    this.roleId = roleId;
-    this.status = Number(status) ? true : false;
+    this.entiteId = entiteId ? Number(entiteId) : null;
+    this.roleId = roleId ? Number(roleId) : undefined;
+    this.status = status ? !!Number(status) : undefined;
   }
 
+  hashAccessCodeAndPassword = async () => {
+    this.accessCode = this.accessCode
+      ? await bcrypt.hash(this.accessCode, 10)
+      : undefined;
+    this.password = this.password
+      ? await bcrypt.hash(this.password, 10)
+      : undefined;
+  };
+
   save = async () => {
-    const data = await user.create({
+    await this.hashAccessCodeAndPassword();
+    const createdUser = await user.create({
       data: {
         firstname: this.firstname,
         lastname: this.lastname,
@@ -39,8 +52,7 @@ export default class User {
         status: this.status,
       },
     });
-    // console.log("save", data);
-    return data;
+    // console.log("createdUser", createdUser);
   };
 
   /**
@@ -136,12 +148,23 @@ export default class User {
     return data;
   };
 
-  static update = async (id, updatedUser) => {
-    const data = await user.update({
+  update = async () => {
+    await this.hashAccessCodeAndPassword();
+    const updatedUser = await user.update({
       where: {
-        id,
+        id: this.id,
       },
-      data: updatedUser,
+      data: {
+        firstname: this.firstname,
+        lastname: this.lastname,
+        email: this.email,
+        phoneNumber: this.phoneNumber,
+        accessCode: this.accessCode,
+        password: this.password,
+        entiteId: this.entiteId,
+        roleId: this.roleId,
+        status: this.status,
+      },
       select: {
         id: true,
         firstname: true,
@@ -150,8 +173,7 @@ export default class User {
         role: true,
       },
     });
-    // console.log("update", data);
-    return data;
+    // console.log("updatedUser", updatedUser);
   };
 
   static delete = async (id) => {
@@ -163,20 +185,4 @@ export default class User {
     // console.log("delete", data);
     return data;
   };
-
-  // static findAllByDay = async (date) => {
-  //   const data = await user.findMany({
-  //     include: {
-  //       pointages: {
-  //         where: {
-  //           sessionStart: {
-  //             gte: new Date(date),
-  //           },
-  //         },
-  //       },
-  //     },
-  //   });
-  //   console.log("findAllByDay", data);
-  //   return data;
-  // };
 }

@@ -1,24 +1,18 @@
 import User from "../models/User.js";
 import Role from "../models/Role.js";
-import bcrypt from "bcrypt";
 
 export async function create(req, res) {
   const reqUser = res.locals.user;
-  const user = req.body;
-  user.roleId = Number(user.roleId);
-  user.entiteId = Number(user.entiteId) == 0 ? null : Number(user.entiteId);
+  const data = req.body;
   try {
+    const user = new User(data);
     if (!(await hasPermissionToCreate(reqUser, user))) {
       return res
         .status(403)
         .json({ message: "Vous ne pouvez pas faire cette action." });
     }
-    user.password = await bcrypt.hash(user.password, 10);
-    user.accessCode = await bcrypt.hash(user.accessCode, 10);
-    const newUser = new User(user);
-    const data = await newUser.save();
-    // console.log(data);
-    res.json(data);
+    await user.save();
+    res.status(204).end();
   } catch (error) {
     console.log(error);
     res.status(500).end();
@@ -28,31 +22,16 @@ export async function create(req, res) {
 export async function update(req, res) {
   const reqUser = res.locals.user;
   const id = Number(req.params.id);
-  const user = req.body;
-  if ("status" in user) {
-    user.status = Number(user.status) ? true : false;
-  }
-  if (user.roleId) {
-    user.roleId = Number(user.roleId);
-  }
-  user.entiteId = Number(user.entiteId) == 0 ? null : Number(user.entiteId);
-  if (user.accessCode) {
-    user.accessCode = await bcrypt.hash(user.accessCode, 10);
-  } else delete user.accessCode;
-  if (user.password) {
-    user.password = await bcrypt.hash(user.password, 10);
-  } else delete user.password;
-  console.log("user", "(" + new Date().toLocaleTimeString() + ")");
-  console.log(user);
+  const data = req.body;
   try {
+    const user = new User({ ...data, id });
     if (!(await hasPermissionToUpdate(reqUser, { ...user, id }))) {
       return res
         .status(403)
         .json({ message: "Vous ne pouvez pas faire cette action." });
     }
-    const data = await User.update(id, user);
-    // console.log(data);
-    res.json(data);
+    await user.update();
+    res.status(204).end();
   } catch (error) {
     console.log(error);
     res.status(500).end();
@@ -83,15 +62,15 @@ export async function findAll(req, res) {
 
 export async function deleteOne(req, res) {
   const reqUser = res.locals.user;
-  const id = +req.params.id;
+  const id = Number(req.params.id);
   try {
     if (!(await hasPermissionToDelete(reqUser, id))) {
       return res
         .status(403)
         .json({ message: "Vous ne pouvez pas faire cette action." });
     }
-    const data = await User.delete(id);
-    res.json(data);
+    await User.delete(id);
+    res.status(204).end();
   } catch (error) {
     console.log(error);
     res.status(500).end();
@@ -135,7 +114,6 @@ export async function findAllByDay(req, res) {
  */
 export async function hasPermissionToUpdate(reqUser, newUser) {
   const oldUser = await User.findById(newUser.id);
-  const roles = await Role.getAll();
   // I) Utilisateur d'une permission supérieure
   if (reqUser.role.permissionId > oldUser.role.permissionId) {
     return false;
@@ -151,7 +129,10 @@ export async function hasPermissionToUpdate(reqUser, newUser) {
       return false;
     }
     // C) Status différents (et !A)
-    if (newUser.status && oldUser.status != newUser.status) {
+    if (
+      typeof newUser.status != "undefined" &&
+      oldUser.status != newUser.status
+    ) {
       return false;
     }
     return true;
@@ -159,9 +140,8 @@ export async function hasPermissionToUpdate(reqUser, newUser) {
   // III) Utilisateur d'une permission inférieure
   if (reqUser.role.permissionId < oldUser.role.permissionId) {
     // B) Role équivalent ou supérieur
-    let newUserPermissionId = roles.find((r) => r.id == newUser.roleId)
-      .permission.id;
-    if (newUserPermissionId <= reqUser.role.permissionId) {
+    const newUserRole = await Role.findById(newUser.roleId);
+    if (newUserRole.permissionId <= reqUser.role.permissionId) {
       return false;
     }
     return true;
@@ -180,11 +160,9 @@ export async function hasPermissionToCreate(reqUser, newUser) {
   if (reqUser.role.permissionId == 1) {
     return true;
   }
-  const roles = await Role.getAll();
+  const newUserRole = await Role.findById(newUser.roleId);
   // II) newUser a une permission supérieure ou équivalente à reqUser
-  let newUserPermissionId = roles.find((r) => r.id == newUser.roleId).permission
-    .id;
-  if (newUserPermissionId <= reqUser.role.permissionId) {
+  if (newUserRole.id <= reqUser.role.permissionId) {
     return false;
   }
   return true;
