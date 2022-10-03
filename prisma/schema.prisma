@@ -73,7 +73,6 @@ model Affaire {
   entite           Entite         @relation(fields: [entiteId], references: [id])
   entiteId         Int
   pointages        Pointage[]
-  commandes        Commande[]
 
   @@map("affaire")
 }
@@ -115,7 +114,6 @@ model User {
   semaines    Semaine[]
   entite      Entite?    @relation(fields: [entiteId], references: [id])
   entiteId    Int?
-  commandes   Commande[]
   role        Role       @relation(fields: [roleId], references: [id])
   roleId      Int
   email       String?    @unique
@@ -177,17 +175,17 @@ model EtatSemaine {
 }
 
 model Commande {
-  id            Int         @id @default(autoincrement())
-  user          User        @relation(fields: [userId], references: [id])
+  id            Int       @id @default(autoincrement())
+  user          String
   userId        Int
-  article       Article     @relation(fields: [articleId], references: [id])
+  article       String
   articleId     Int
-  fournisseur   Fournisseur @relation(fields: [fournisseurId], references: [id])
+  fournisseur   String
   fournisseurId Int
-  affaire       Affaire?    @relation(fields: [affaireId], references: [id])
+  affaire       String?
   affaireId     Int?
   quantite      Int
-  etat          String      @default("En attente")
+  etat          String    @default("En attente")
   valideeLe     DateTime?
   valideePar    String?
 
@@ -199,7 +197,6 @@ model Article {
   name         String
   categorie    Categorie?    @relation(fields: [categorieId], references: [id], onDelete: SetNull)
   categorieId  Int?
-  commandes    Commande[]
   fournisseurs Fournisseur[] @relation("article_to_fournisseur")
 
   @@map("article")
@@ -214,10 +211,9 @@ model Categorie {
 }
 
 model Fournisseur {
-  id        Int        @id @default(autoincrement())
-  name      String
-  articles  Article[]  @relation("article_to_fournisseur")
-  commandes Commande[]
+  id       Int       @id @default(autoincrement())
+  name     String
+  articles Article[] @relation("article_to_fournisseur")
 
   @@map("fournisseur")
 }

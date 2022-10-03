@@ -79,7 +79,6 @@ export default class Affaire {
         etat: true,
         secteurAffaire: true,
         pointages: true,
-        commandes: true,
         adresse: true,
         coordonnees: true,
         zone: true,

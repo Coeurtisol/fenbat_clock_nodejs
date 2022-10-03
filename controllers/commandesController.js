@@ -22,9 +22,10 @@ export async function getAllByUser(req, res) {
 }
 
 export async function create(req, res) {
+  const { id: userId, firstname, lastname } = res.locals.user;
   const data = req.body;
   try {
-    const commande = new Commande(data);
+    const commande = new Commande({ ...data, userId, firstname, lastname });
     await commande.save();
     res.status(201).end();
   } catch (error) {
@@ -46,17 +47,6 @@ export async function changeEtat(req, res) {
     res.status(500).end();
   }
 }
-
-// export async function deleteOne(req, res) {
-//   const id = Number(req.params.id);
-//   try {
-//     await Commande.delete(id);
-//     res.status(204).end();
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).end();
-//   }
-// }
 
 export async function getNumberCommandesEnAttente(req, res) {
   try {

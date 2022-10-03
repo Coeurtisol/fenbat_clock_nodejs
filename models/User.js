@@ -121,7 +121,6 @@ export default class User {
         entite: true,
         role: true,
         pointages: true,
-        commandes: true,
         status: true,
       },
     });
