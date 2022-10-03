@@ -3,6 +3,14 @@ import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 dotenv.config();
 
+const clientsAffaire = [
+  { id: 1, name: "Bailleur" },
+  { id: 2, name: "Mécénat" },
+  { id: 3, name: "Privé" },
+  { id: 4, name: "Professionnel" },
+  { id: 5, name: "Public" },
+];
+
 const etatsSemaine = [
   { id: 1, name: "En saisie" },
   { id: 2, name: "En attente de validation" },
@@ -61,6 +69,10 @@ const users = [
 ];
 
 async function main() {
+  await prismaClient.clientAffaire.createMany({
+    data: clientsAffaire,
+    skipDuplicates: true,
+  });
   await prismaClient.etatSemaine.createMany({
     data: etatsSemaine,
     skipDuplicates: true,
@@ -86,6 +98,7 @@ async function main() {
     skipDuplicates: true,
   });
 
+  console.log("clientsAffaire", await prismaClient.clientAffaire.findMany());
   console.log("etatSemaine", await prismaClient.etatSemaine.findMany());
   console.log("motifsAbsence", await prismaClient.motifAbsence.findMany());
   console.log("zones", await prismaClient.zone.findMany());
