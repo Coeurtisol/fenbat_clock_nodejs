@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "setup-db": "node prisma/setupMinimalRequiredData.js",
+    "setup-db": "dotenv -e config/.env -- node prisma/setupMinimalRequiredData.js",
     "watch": "nodemon server.js",
     "babel-pdf": "npx babel --presets @babel/preset-react .\\src\\pdfGenerator.jsx --out-dir .\\tools",
-    "babel-watch-pdf": "npx babel --presets @babel/preset-react .\\src\\pdfGenerator.jsx --watch --out-dir .\\tools",
-    "prisma-db-push": "dotenv -e .env.test -- npx prisma"
+    "babel-watch-pdf": "npx babel --presets @babel/preset-react .\\src\\pdfGenerator.jsx --watch --out-dir .\\tools"
   },
   "keywords": [],
   "author": "",
