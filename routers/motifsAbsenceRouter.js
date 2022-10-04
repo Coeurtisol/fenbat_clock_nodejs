@@ -5,12 +5,13 @@ import {
   update,
   deleteOne,
 } from "../controllers/motifsAbsenceController.js";
+import { isResp } from "../middlewares/authMiddleware.js";
 
 const motifsAbsenceRouter = Router();
 
 motifsAbsenceRouter.get("/", getAll);
-motifsAbsenceRouter.post("/", create);
-motifsAbsenceRouter.put("/:id", update);
-motifsAbsenceRouter.delete("/:id", deleteOne);
+motifsAbsenceRouter.post("/", isResp, create);
+motifsAbsenceRouter.put("/:id", isResp, update);
+motifsAbsenceRouter.delete("/:id", isResp, deleteOne);
 
 export default motifsAbsenceRouter;

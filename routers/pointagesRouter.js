@@ -1,14 +1,11 @@
 import { Router } from "express";
-import {
-  findUsersPointagesSinceDate,
-  create,
-  update,
-} from "../controllers/pointagesController.js";
+import { findUsersPointagesSinceDate } from "../controllers/pointagesController.js";
+import { isResp } from "../middlewares/authMiddleware.js";
 
 const pointagesRouter = Router();
 
-pointagesRouter.post("/overview", findUsersPointagesSinceDate);
-pointagesRouter.post("/", create);
-pointagesRouter.put("/:id", update);
+pointagesRouter.post("/overview", isResp, findUsersPointagesSinceDate);
+// pointagesRouter.post("/", create);
+// pointagesRouter.put("/:id", update);
 
 export default pointagesRouter;

@@ -17,7 +17,7 @@ import articlesRouter from "./articlesRouter.js";
 import fournisseursRouter from "./fournisseursRouter.js";
 import commandesRouter from "./commandesRouter.js";
 import authRouter from "./authRouter.js";
-import { hasValidToken } from "../middlewares/authMiddleware.js";
+import { hasValidToken, isResp } from "../middlewares/authMiddleware.js";
 
 const apiRouter = Router();
 
@@ -29,17 +29,17 @@ apiRouter.use(hasValidToken);
 // Generalités
 apiRouter.use("/entites", entitesRouter);
 apiRouter.use("/affaires", affairesRouter);
-apiRouter.use("/secteursAffaire", secteursAffaireRouter);
-apiRouter.use("/typesAffaire", typesAffaireRouter);
-apiRouter.use("/clientsAffaire", clientsAffaireRouter);
-apiRouter.use("/donneursAffaire", donneursAffaireRouter);
-apiRouter.use("/permissions", permissionsRouter);
-apiRouter.use("/roles", rolesRouter);
+apiRouter.use("/secteursAffaire", isResp, secteursAffaireRouter);
+apiRouter.use("/typesAffaire", isResp, typesAffaireRouter);
+apiRouter.use("/clientsAffaire", isResp, clientsAffaireRouter);
+apiRouter.use("/donneursAffaire", isResp, donneursAffaireRouter);
+apiRouter.use("/permissions", isResp, permissionsRouter);
+apiRouter.use("/roles", isResp, rolesRouter);
 apiRouter.use("/users", usersRouter);
 
 // Pointages
 apiRouter.use("/semaines", semainesRouter);
-apiRouter.use("/etatsSemaine", etatsSemaineRouter);
+apiRouter.use("/etatsSemaine", isResp, etatsSemaineRouter);
 apiRouter.use("/pointages", pointagesRouter);
 apiRouter.use("/motifsAbsence", motifsAbsenceRouter);
 

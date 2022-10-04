@@ -8,14 +8,15 @@ import {
   // addAdmin,
   // findAllByDay,
 } from "../controllers/usersController.js";
+import { isResp } from "../middlewares/authMiddleware.js";
 
 const usersRouter = Router();
 // usersRouter.get("/addadmin", addAdmin);
 usersRouter.get("/:id", findOne);
-usersRouter.get("/", findAll);
-usersRouter.post("/", create);
+usersRouter.get("/", isResp, findAll);
+usersRouter.post("/", isResp, create);
 usersRouter.put("/:id", update);
-usersRouter.delete("/:id", deleteOne);
+usersRouter.delete("/:id", isResp, deleteOne);
 // usersRouter.get("/pointages/:date", findAllByDay);
 
 export default usersRouter;
