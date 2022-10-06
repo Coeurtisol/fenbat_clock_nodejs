@@ -10,7 +10,10 @@ function compareIp(req) {
 }
 
 export function isSecure(req, res) {
-  const isSecure = compareIp(req);
+  let isSecure = true;
+  if (Number(process.env.VERIFY_IP)) {
+    isSecure = compareIp(req);
+  }
   return res.status(200).json({ isSecure });
 }
 
