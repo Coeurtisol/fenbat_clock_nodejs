@@ -39,7 +39,7 @@ export default class User {
 
   save = async () => {
     await this.hashAccessCodeAndPassword();
-    const createdUser = await user.create({
+    await user.create({
       data: {
         firstname: this.firstname,
         lastname: this.lastname,
@@ -52,7 +52,6 @@ export default class User {
         status: this.status,
       },
     });
-    // console.log("createdUser", createdUser);
   };
 
   /**
@@ -149,7 +148,7 @@ export default class User {
 
   update = async () => {
     await this.hashAccessCodeAndPassword();
-    const updatedUser = await user.update({
+    await user.update({
       where: {
         id: this.id,
       },

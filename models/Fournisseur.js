@@ -1,6 +1,6 @@
 import prisma from "./Prisma.js";
 
-const { fournisseur, articleFournisseur } = prisma;
+const { fournisseur } = prisma;
 
 export default class Fournisseur {
   constructor({ id, name }) {

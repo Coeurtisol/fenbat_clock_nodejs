@@ -71,7 +71,7 @@ export default class Pointage {
     manipulatedDate.setDate(
       manipulatedDate.getDate() - manipulatedDate.getDay() + 1
     );
-    for (var i = 0; i < 7; i++) {
+    for (let i = 0; i < 7; i++) {
       weekDays.push(new Date(manipulatedDate));
       manipulatedDate.setDate(manipulatedDate.getDate() + 1);
     }

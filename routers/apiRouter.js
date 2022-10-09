@@ -21,10 +21,10 @@ import { hasValidToken, isResp } from "../middlewares/authMiddleware.js";
 
 const apiRouter = Router();
 
-//// Public
+/// / Public
 apiRouter.use("/auth", authRouter);
 
-//// PRIVE
+/// / PRIVE
 apiRouter.use(hasValidToken);
 // Generalités
 apiRouter.use("/entites", entitesRouter);

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint . --fix",
     "setup-db": "dotenv -e config/.env -- node prisma/setupMinimalRequiredData.js",
     "watch": "nodemon server.js",
     "babel-pdf": "npx babel --presets @babel/preset-react .\\src\\pdfGenerator.jsx --out-dir .\\tools",
@@ -15,6 +16,13 @@
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/preset-react": "^7.16.0",
+    "eslint": "^8.25.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.3.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.0.1",
     "nodemon": "^2.0.14",
     "prisma": "^3.9.2"
   },

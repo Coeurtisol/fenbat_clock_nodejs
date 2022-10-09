@@ -6,7 +6,7 @@ const Jwt = jwtPKG;
 function compareIp(req) {
   const secureIP = process.env.SECURE_IP;
   const ip = req.socket.remoteAddress;
-  return ip == secureIP;
+  return ip === secureIP;
 }
 
 export function isSecure(req, res) {

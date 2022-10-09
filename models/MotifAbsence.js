@@ -5,7 +5,7 @@ const { motifAbsence } = prisma;
 export default class MotifAbsence {
   constructor({ name, bloquant }) {
     this.name = name;
-    this.bloquant = Number(bloquant) ? true : false;
+    this.bloquant = !!Number(bloquant);
   }
 
   save = async () => {

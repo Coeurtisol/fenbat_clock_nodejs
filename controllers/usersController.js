@@ -119,19 +119,19 @@ export async function hasPermissionToUpdate(reqUser, newUser) {
     return false;
   }
   // II) Utilisateur d'une permission équivalente
-  if (reqUser.role.permissionId == oldUser.role.permissionId) {
+  if (reqUser.role.permissionId === oldUser.role.permissionId) {
     // A) Id différent
-    if (reqUser.id != newUser.id) {
+    if (reqUser.id !== newUser.id) {
       return false;
     }
     // B) Roles différents (et !A)
-    if (newUser.roleId && oldUser.role.id != newUser.roleId) {
+    if (newUser.roleId && oldUser.role.id !== newUser.roleId) {
       return false;
     }
     // C) Status différents (et !A)
     if (
-      typeof newUser.status != "undefined" &&
-      oldUser.status != newUser.status
+      typeof newUser.status !== "undefined" &&
+      oldUser.status !== newUser.status
     ) {
       return false;
     }
@@ -157,7 +157,7 @@ export async function hasPermissionToUpdate(reqUser, newUser) {
 export async function hasPermissionToCreate(reqUser, newUser) {
   // I) reqUser est respSite (1)
   // TODO : RETIRER MAGIC NUMBER
-  if (reqUser.role.permissionId == 1) {
+  if (reqUser.role.permissionId === 1) {
     return true;
   }
   const newUserRole = await Role.findById(newUser.roleId);
@@ -176,7 +176,7 @@ export async function hasPermissionToCreate(reqUser, newUser) {
 export async function hasPermissionToDelete(reqUser, userId) {
   // I) reqUser est respSite (1)
   // TODO : RETIRER MAGIC NUMBER
-  if (reqUser.role.permissionId == 1) {
+  if (reqUser.role.permissionId === 1) {
     return true;
   }
   const userToDelete = await User.findById(userId);

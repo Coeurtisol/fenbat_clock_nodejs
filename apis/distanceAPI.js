@@ -15,7 +15,7 @@ export async function getDistanceByRoad(start, end) {
     },
   };
   const res = await axios.post(url, body, config);
-  const data = res.data;
+  const { data } = res;
   const roadDistance = data.routes[0].summary.distance;
   return roadDistance;
 }

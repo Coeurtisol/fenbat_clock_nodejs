@@ -73,10 +73,10 @@ const MyDocument = ({
   user
 }) => {
   const pdfVersion = PDFversion.substring(3);
-  let commentaire = /*#__PURE__*/React.createElement(Text, null);
+  let commentaire = /* #__PURE__ */React.createElement(Text, null);
 
   if (semaine.commentaire?.length) {
-    commentaire = /*#__PURE__*/React.createElement(Text, {
+    commentaire = /* #__PURE__ */React.createElement(Text, {
       style: styles.cadreInfo
     }, "Commentaire : ", semaine.commentaire);
   }
@@ -100,48 +100,48 @@ const MyDocument = ({
 
   const debutSemaine = FormatDateColumn(semaine.pointages[0].date);
   const finSemaine = FormatDateColumn(semaine.pointages[11].date);
-  let nameDayLine = [];
+  const nameDayLine = [];
 
   for (let i = 0; i < semaine.pointages.length; i += 2) {
     const formatedDateColumn = FormatDateColumn(semaine.pointages[i].date);
-    nameDayLine.push( /*#__PURE__*/React.createElement(Text, {
+    nameDayLine.push( /* #__PURE__ */React.createElement(Text, {
       key: i,
       style: styles.tableCell12
     }, formatedDateColumn));
   } // ligne AM / PM
 
 
-  let momentDayLine = [];
+  const momentDayLine = [];
 
   for (let i = 0; i < semaine.pointages.length; i++) {
-    momentDayLine.push( /*#__PURE__*/React.createElement(Text, {
+    momentDayLine.push( /* #__PURE__ */React.createElement(Text, {
       key: i,
       style: styles.tableCell6
     }, semaine.pointages && semaine.pointages[i].moment ? "P.M" : "A.M"));
   } // ligne des valeurs (heures)
 
 
-  let valueLine = [];
+  const valueLine = [];
 
   for (let i = 0; i < semaine.pointages.length; i++) {
-    valueLine.push( /*#__PURE__*/React.createElement(Text, {
+    valueLine.push( /* #__PURE__ */React.createElement(Text, {
       key: i,
       style: styles.tableCell6
     }, semaine.pointages[i].valeur));
   } // ligne des affaires
 
 
-  let affaireLine = [];
+  const affaireLine = [];
 
   for (let i = 0; i < semaine.pointages.length; i++) {
-    affaireLine.push( /*#__PURE__*/React.createElement(Text, {
+    affaireLine.push( /* #__PURE__ */React.createElement(Text, {
       key: i,
       style: styles.tableCell6
     }, semaine.pointages[i].affaire ? semaine.pointages[i].affaire.name : ""));
   } // ligne des zones
 
 
-  let zoneLine = [];
+  const zoneLine = [];
 
   for (let i = 0; i < semaine.pointages.length; i += 2) {
     const affaireAM = semaine.pointages[i].affaire;
@@ -154,8 +154,8 @@ const MyDocument = ({
       zone = zonePM?.label;
     }
 
-    const showZone = affaireAM || affairePM ? true : false;
-    zoneLine.push( /*#__PURE__*/React.createElement(Text, {
+    const showZone = !!(affaireAM || affairePM);
+    zoneLine.push( /* #__PURE__ */React.createElement(Text, {
       key: i,
       style: styles.tableCell12
     }, showZone && (zone || "non calculée")));
@@ -163,14 +163,14 @@ const MyDocument = ({
 
 
   let totalWeekValue = 0;
-  let valueTotalLine = [];
+  const valueTotalLine = [];
 
   for (let i = 0; i < semaine.pointages.length; i += 2) {
     const valueAm = semaine.pointages[i].valeur;
     const valuePm = semaine.pointages[i + 1].valeur;
     const valueDay = valueAm + valuePm;
     totalWeekValue += valueDay;
-    valueTotalLine.push( /*#__PURE__*/React.createElement(Text, {
+    valueTotalLine.push( /* #__PURE__ */React.createElement(Text, {
       key: i,
       style: styles.tableCell12
     }, valueDay));
@@ -178,7 +178,7 @@ const MyDocument = ({
 
 
   let totalWeekPanier = 0;
-  let panierLine = [];
+  const panierLine = [];
 
   for (let i = 0; i < semaine.pointages.length; i += 2) {
     const panierAm = semaine.pointages[i].valeur;
@@ -190,102 +190,102 @@ const MyDocument = ({
     }
 
     totalWeekPanier += panierDay;
-    panierLine.push( /*#__PURE__*/React.createElement(Text, {
+    panierLine.push( /* #__PURE__ */React.createElement(Text, {
       key: i,
       style: styles.tableCell12
     }, panierDay));
   } // ligne des motifs
 
 
-  let motifLine = [];
+  const motifLine = [];
 
   for (let i = 0; i < semaine.pointages.length; i++) {
-    motifLine.push( /*#__PURE__*/React.createElement(Text, {
+    motifLine.push( /* #__PURE__ */React.createElement(Text, {
       key: i,
       style: styles.tableCell6
     }, semaine.pointages[i].motifAbsence ? semaine.pointages[i].motifAbsence.name : ""));
   }
 
-  return /*#__PURE__*/React.createElement(Document, null, /*#__PURE__*/React.createElement(Page, {
+  return /* #__PURE__ */React.createElement(Document, null, /* #__PURE__ */React.createElement(Page, {
     orientation: "landscape"
-  }, /*#__PURE__*/React.createElement(View, {
+  }, /* #__PURE__ */React.createElement(View, {
     style: styles.section,
     fixed: true
-  }, /*#__PURE__*/React.createElement(Image, {
+  }, /* #__PURE__ */React.createElement(Image, {
     source: "./src/img/en-t\xEAte.png"
-  })), /*#__PURE__*/React.createElement(View, {
+  })), /* #__PURE__ */React.createElement(View, {
     style: styles.cadreInfoContainer
-  }, /*#__PURE__*/React.createElement(Text, {
+  }, /* #__PURE__ */React.createElement(Text, {
     style: styles.cadreInfoPrenomNom
-  }, semaine.user.firstname, " ", semaine.user.lastname), /*#__PURE__*/React.createElement(Text, {
+  }, semaine.user.firstname, " ", semaine.user.lastname), /* #__PURE__ */React.createElement(Text, {
     style: styles.cadreInfo
-  }, "Ann\xE9e : ", semaine.annee), /*#__PURE__*/React.createElement(Text, {
+  }, "Ann\xE9e : ", semaine.annee), /* #__PURE__ */React.createElement(Text, {
     style: styles.cadreInfo
-  }, "Semaine : ", semaine.numero, " (", debutSemaine, " au ", finSemaine, ")"), /*#__PURE__*/React.createElement(Text, {
+  }, "Semaine : ", semaine.numero, " (", debutSemaine, " au ", finSemaine, ")"), /* #__PURE__ */React.createElement(Text, {
     style: styles.cadreInfo
-  }, "\xC9tat : ", semaine.etatSemaine.name), commentaire), /*#__PURE__*/React.createElement(View, {
+  }, "\xC9tat : ", semaine.etatSemaine.name), commentaire), /* #__PURE__ */React.createElement(View, {
     style: styles.table
-  }, /*#__PURE__*/React.createElement(View, {
+  }, /* #__PURE__ */React.createElement(View, {
     style: styles.tableRowHead
-  }, /*#__PURE__*/React.createElement(Text, {
+  }, /* #__PURE__ */React.createElement(Text, {
     style: styles.tableCell6
-  }, " "), nameDayLine, /*#__PURE__*/React.createElement(Text, {
+  }, " "), nameDayLine, /* #__PURE__ */React.createElement(Text, {
     style: styles.tableCell6
-  }, "Totaux")), /*#__PURE__*/React.createElement(View, {
+  }, "Totaux")), /* #__PURE__ */React.createElement(View, {
     style: styles.tableRow
-  }, /*#__PURE__*/React.createElement(Text, {
+  }, /* #__PURE__ */React.createElement(Text, {
     style: styles.tableCell6
-  }, " "), momentDayLine, /*#__PURE__*/React.createElement(Text, {
+  }, " "), momentDayLine, /* #__PURE__ */React.createElement(Text, {
     style: styles.tableCell6
-  }, " ")), /*#__PURE__*/React.createElement(View, {
+  }, " ")), /* #__PURE__ */React.createElement(View, {
     style: styles.tableRow
-  }, /*#__PURE__*/React.createElement(Text, {
+  }, /* #__PURE__ */React.createElement(Text, {
     style: styles.tableCell6
-  }, "Heures"), valueLine, /*#__PURE__*/React.createElement(Text, {
+  }, "Heures"), valueLine, /* #__PURE__ */React.createElement(Text, {
     style: styles.tableCell6
-  }, " ")), /*#__PURE__*/React.createElement(View, {
+  }, " ")), /* #__PURE__ */React.createElement(View, {
     style: styles.tableRow
-  }, /*#__PURE__*/React.createElement(Text, {
+  }, /* #__PURE__ */React.createElement(Text, {
     style: styles.tableCell6
-  }, "Affaire"), affaireLine, /*#__PURE__*/React.createElement(Text, {
+  }, "Affaire"), affaireLine, /* #__PURE__ */React.createElement(Text, {
     style: styles.tableCell6
-  }, " ")), /*#__PURE__*/React.createElement(View, {
+  }, " ")), /* #__PURE__ */React.createElement(View, {
     style: styles.tableRow
-  }, /*#__PURE__*/React.createElement(Text, {
+  }, /* #__PURE__ */React.createElement(Text, {
     style: styles.tableCell6
-  }, "Indemnit\xE9 trajet"), zoneLine, /*#__PURE__*/React.createElement(Text, {
+  }, "Indemnit\xE9 trajet"), zoneLine, /* #__PURE__ */React.createElement(Text, {
     style: styles.tableCell6
-  }, " ")), /*#__PURE__*/React.createElement(View, {
+  }, " ")), /* #__PURE__ */React.createElement(View, {
     style: styles.tableRow
-  }, /*#__PURE__*/React.createElement(Text, {
+  }, /* #__PURE__ */React.createElement(Text, {
     style: styles.tableCell6
-  }, "Total Heure"), valueTotalLine, /*#__PURE__*/React.createElement(Text, {
+  }, "Total Heure"), valueTotalLine, /* #__PURE__ */React.createElement(Text, {
     style: styles.tableCell6
-  }, totalWeekValue)), /*#__PURE__*/React.createElement(View, {
+  }, totalWeekValue)), /* #__PURE__ */React.createElement(View, {
     style: styles.tableRow
-  }, /*#__PURE__*/React.createElement(Text, {
+  }, /* #__PURE__ */React.createElement(Text, {
     style: styles.tableCell6
-  }, "Panier"), panierLine, /*#__PURE__*/React.createElement(Text, {
+  }, "Panier"), panierLine, /* #__PURE__ */React.createElement(Text, {
     style: styles.tableCell6
-  }, totalWeekPanier)), /*#__PURE__*/React.createElement(View, {
+  }, totalWeekPanier)), /* #__PURE__ */React.createElement(View, {
     style: styles.tableRow
-  }, /*#__PURE__*/React.createElement(Text, {
+  }, /* #__PURE__ */React.createElement(Text, {
     style: styles.tableCell6
-  }, "Autre"), motifLine, /*#__PURE__*/React.createElement(Text, {
+  }, "Autre"), motifLine, /* #__PURE__ */React.createElement(Text, {
     style: styles.tableCell6
-  }, " "))), /*#__PURE__*/React.createElement(Text, {
+  }, " "))), /* #__PURE__ */React.createElement(Text, {
     style: styles.versionDateNameText
   }, "Version ", pdfVersion, ", g\xE9n\xE9r\xE9e le ", createdDate, ", par ", user.firstname, " ", user.lastname)));
 };
 
 const pdfGenerate = async (semaine, PDFversion, user) => {
   const userName = `${semaine.user.firstname}${semaine.user.lastname}`;
-  const version = PDFversion == "PDFemploye" ? 0 : 1;
+  const version = PDFversion === "PDFemploye" ? 0 : 1;
   const fileName = `${userName}-${semaine.annee}-${semaine.numero}-${version}`;
-  await renderToFile( /*#__PURE__*/React.createElement(MyDocument, {
-    semaine: semaine,
-    PDFversion: PDFversion,
-    user: user
+  await renderToFile( /* #__PURE__ */React.createElement(MyDocument, {
+    semaine,
+    PDFversion,
+    user
   }), `${path.resolve()}/documents/pdf/${fileName}.pdf`);
 };
 

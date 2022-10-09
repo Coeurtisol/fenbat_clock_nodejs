@@ -1,5 +1,5 @@
-import path from "path";
-import fsPromise from "fs/promises";
+// import path from "path";
+// import fsPromise from "fs/promises";
 import Semaine from "../models/Semaine.js";
 import { updatePointages } from "../controllers/pointagesController.js";
 import pdfGenerate from "../tools/pdfGenerator.js";
@@ -8,8 +8,7 @@ export async function getAllByWeek(req, res) {
   const annee = +req.params.year;
   const numero = +req.params.week;
   try {
-    let data;
-    data = await Semaine.getAllByWeek(annee, numero);
+    const data = await Semaine.getAllByWeek(annee, numero);
     res.json(data);
   } catch (error) {
     console.log(error);
@@ -40,7 +39,7 @@ export async function update(req, res) {
   const { semaine } = req.body;
   const user = res.locals.user;
   const PDFversion =
-    user.id == semaine.user.id ? "PDFemploye" : "PDFresponsable";
+    user.id === semaine.user.id ? "PDFemploye" : "PDFresponsable";
   try {
     await updatePointages(semaine.pointages);
     const data = await Semaine.update(id, semaine);
@@ -59,7 +58,7 @@ export async function update(req, res) {
 export async function getNumberSemainesEnAttente(req, res) {
   const numero = Number(req.params.numeroSemaine);
   const permissionId = res.locals.user.role.permissionId;
-  const etatSemaineId = permissionId == 1 ? 3 : 2;
+  const etatSemaineId = permissionId === 1 ? 3 : 2;
   try {
     const data = await Semaine.getCountEnAttente(numero, etatSemaineId);
     res.json(data);

@@ -21,7 +21,7 @@ const permissions = {
 
 export function hasPermission(res, permission) {
   const { permissionId } = res.locals.user.role;
-  if (permissionId == permissions[permission].id) {
+  if (permissionId === permissions[permission].id) {
     return true;
   }
   return false;

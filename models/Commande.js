@@ -54,7 +54,7 @@ export default class Commande {
         id,
       },
       data: {
-        etat: etat,
+        etat,
         valideeLe: new Date(),
         valideePar: valideur,
       },
