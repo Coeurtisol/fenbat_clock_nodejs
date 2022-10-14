@@ -3,9 +3,10 @@ import prisma from "./Prisma.js";
 const { motifAbsence } = prisma;
 
 export default class MotifAbsence {
-  constructor({ name, bloquant }) {
+  constructor({ id, name, bloquant }) {
+    this.id = id;
     this.name = name;
-    this.bloquant = !!Number(bloquant);
+    this.bloquant = bloquant;
   }
 
   save = async () => {
@@ -17,12 +18,15 @@ export default class MotifAbsence {
     });
   };
 
-  static update = async (id, updatedMotifAbsence) => {
+  update = async () => {
     await motifAbsence.update({
       where: {
-        id,
+        id: this.id,
       },
-      data: updatedMotifAbsence,
+      data: {
+        name: this.name,
+        bloquant: this.bloquant,
+      },
     });
   };
 

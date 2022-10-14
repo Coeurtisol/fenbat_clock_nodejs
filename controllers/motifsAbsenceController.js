@@ -24,10 +24,10 @@ export async function create(req, res) {
 
 export async function update(req, res) {
   const id = Number(req.params.id);
-  const updatedMotifAbsence = req.body;
-  updatedMotifAbsence.bloquant = !!Number(updatedMotifAbsence.bloquant);
+  const data = req.body;
   try {
-    await MotifAbsence.update(id, updatedMotifAbsence);
+    const motifAbsence = new MotifAbsence({...data,id})
+    await motifAbsence.update();
     res.status(204).end();
   } catch (error) {
     console.log(error);

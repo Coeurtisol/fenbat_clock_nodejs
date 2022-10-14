@@ -25,7 +25,7 @@ export default class User {
     this.password = password;
     this.entiteId = entiteId ? Number(entiteId) : null;
     this.roleId = roleId ? Number(roleId) : undefined;
-    this.status = status ? !!Number(status) : undefined;
+    this.status = status;
   }
 
   hashAccessCodeAndPassword = async () => {
