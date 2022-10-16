@@ -2,6 +2,9 @@ import express from "express";
 import apiRouter from "./routers/apiRouter.js";
 import cors from "cors";
 import path from "path";
+import dotenv from "dotenv";
+
+dotenv.config({ path: "./config/.env" });
 
 const app = express();
 app.use(cors());
@@ -20,5 +23,9 @@ app.get("/*", (req, res) => {
   });
 });
 
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`server is running on port ${PORT}`);
+});
 
 export default app;
