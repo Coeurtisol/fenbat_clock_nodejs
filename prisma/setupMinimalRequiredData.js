@@ -1,7 +1,7 @@
 import prismaClient from "../models/Prisma.js";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
-dotenv.config();
+dotenv.config({ path: "./config/.env" });
 
 const clientsAffaire = [
   { id: 1, name: "Bailleur" },
