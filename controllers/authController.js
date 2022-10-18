@@ -3,9 +3,25 @@ import bcrypt from "bcrypt";
 import jwtPKG from "jsonwebtoken";
 const Jwt = jwtPKG;
 
+function getIp(req) {
+  // const ip = req.socket.remoteAddress;
+  const ip =
+    req.headers["x-forwarded-for"]?.split(",")[0].trim() ||
+    req.connection.remoteAddress ||
+    "";
+  console.log("*****");
+  console.log("(" + new Date().toLocaleTimeString() + ")");
+  console.log("Récupération ip client");
+  console.log("x-forwarded-for :", req.headers["x-forwarded-for"]);
+  console.log("connection.remoteAddress :", req.connection.remoteAddress);
+  console.log("ip prise pour comparaison :", ip);
+  console.log("*****");
+  return ip;
+}
+
 function compareIp(req) {
   const secureIP = process.env.SECURE_IP;
-  const ip = req.socket.remoteAddress;
+  const ip = getIp(req);
   return ip === secureIP;
 }
 
